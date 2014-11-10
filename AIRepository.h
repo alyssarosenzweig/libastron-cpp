@@ -18,6 +18,8 @@ public:
 	void unsubscribe_channel(uint64_t channel);
 
 private:
+	void on_data(uint8_t* data, uint16_t len);
+
 	vector<ChannelWatcher> m_watchers;
 };
 

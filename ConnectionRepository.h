@@ -10,7 +10,7 @@ public:
 	void send(Datagram dg);
 	void close();
 	void loop();
-private:
+protected:
 	Module* m_module;
 	Connection m_connection;
 
@@ -18,7 +18,7 @@ private:
 	string m_host;
 	uint16_t m_port;
 
-	void on_data(uint8_t* data, uint16_t len);
+	virtual void on_data(uint8_t* data, uint16_t len);
 };
 
 #endif
