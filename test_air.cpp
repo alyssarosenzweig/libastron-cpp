@@ -12,7 +12,9 @@ int main() {
 	dg.add_string("libastron-c++");
 	repo.send(dg);
 
-	repo.subscribe_channel(ChannelWatcher(1234));
+	ChannelWatcher loginWatcher(1234);
+
+	repo.subscribe_channel(&loginWatcher);
 
 	repo.loop();
 }

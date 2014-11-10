@@ -32,13 +32,13 @@ void AIRepository::control_header(Datagram* dg, uint16_t msgtype) {
 	dg->add_uint16(msgtype);
 }
 
-void AIRepository::subscribe_channel(ChannelWatcher channel) {
+void AIRepository::subscribe_channel(ChannelWatcher* channel) {
 	Datagram dg;
 	control_header(&dg, CONTROL_ADD_CHANNEL);
-	dg.add_uint64(channel.getChannel());
+	dg.add_uint64(channel->getChannel());
 	send(dg);
 
-	m_watchers.push_back(channel);
+	m_watchers[channel->getChannel()] = channel;
 }
 
 void AIRepository::unsubscribe_channel(uint64_t channel) {
@@ -65,5 +65,11 @@ void AIRepository::on_data(uint8_t* data, uint16_t len) {
     uint64_t sender = di.read_uint64();
     uint16_t msgtype = di.read_uint16();
 
-    cout << sender << " sent " << msgtype << " to " << recipients[0] << endl;
+    for(uint64_t recipient : recipients) {
+    	if(m_watchers.find(recipient) != m_watchers.end()) {
+    		m_watchers[recipient]->message(dg, sender, msgtype);
+    	} else {
+    		cout << "No one is listening to " << recipient << endl;
+    	}
+    }
 }
