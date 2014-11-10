@@ -19,3 +19,11 @@ ConnectionRepository::ConnectionRepository(boost::asio::io_service* io_service, 
 
     parse_dcfile(m_module, m_dcFile);
 }
+
+void ConnectionRepository::send(Datagram dg) {
+	m_connection.send(dg);
+}
+
+void ConnectionRepository::close() {
+	m_connection.close();
+}

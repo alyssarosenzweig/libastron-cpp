@@ -7,9 +7,11 @@
 class ConnectionRepository {
 public:
 	ConnectionRepository(boost::asio::io_service* io_service, string m_host, uint16_t m_port, string dcFile);
-	Connection m_connection;
+	void send(Datagram dg);
+	void close();
 private:
 	Module* m_module;
+	Connection m_connection;
 
 	string m_dcFile;
 	string m_host;
