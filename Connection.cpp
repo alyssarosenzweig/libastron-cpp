@@ -27,3 +27,12 @@ Connection::Connection(boost::asio::io_service* io_service, string host, uint16_
       throw boost::system::system_error(error);
 
 }
+
+void Connection::send(Datagram dg) {
+	boost::system::error_code e;
+	
+	boost::asio::write(m_socket, 
+		boost::asio::buffer(dg.data(), dg.size()),
+		boost::asio::transfer_all(),
+	e);
+}
