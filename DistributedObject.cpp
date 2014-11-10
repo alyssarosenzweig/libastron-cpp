@@ -17,6 +17,7 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 
 			Module* module = cr->getModule();
 			Field* field = module->field_by_id(field_id);
+			Type* fieldType = field->type();
 			Method* method = field->type()->as_method();
 
 			for(int i = 0; i < method->num_parameters(); ++i) {
