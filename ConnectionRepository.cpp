@@ -33,12 +33,10 @@ void ConnectionRepository::on_data(uint8_t* data, uint16_t len) {
 }
 
 void ConnectionRepository::loop() {
-	ConnectionRepository* self = this;
-
 	m_connection.poll(
 		[&](uint8_t* data, uint16_t len) {
 			printf("Hello from within the lambda!\n");
-			self->on_data(data, len);
+			on_data(data, len);
 		}
 	);
 }
