@@ -3,9 +3,11 @@
 vector<string> astron_keywords {"clsend", "ownsend", "clrecv", "ownrecv",
                                "airecv", "broadcast", "ram", "required", "db"};
 
-ConnectionRepository::ConnectionRepository(string dcFile) : 
+ConnectionRepository::ConnectionRepository(string host, uint16_t port, string dcFile) : 
 												m_dcFile(dcFile),
-												m_connection(Connection("127.0.0.1", 7199))
+												m_host(host),
+												m_port(port),
+												m_connection(Connection(m_host, m_port))
 {
 	cout << "Initializing ConnectionRepository with dcFile " << dcFile << endl;
 	

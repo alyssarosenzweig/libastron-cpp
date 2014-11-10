@@ -6,11 +6,14 @@
 
 class ConnectionRepository {
 public:
-	ConnectionRepository(string dcFile);
+	ConnectionRepository(string m_host, uint16_t m_port, string dcFile);
 private:
 	Module* m_module;
-	string m_dcFile;
 	Connection m_connection;
+
+	string m_dcFile;
+	string m_host;
+	uint16_t m_port;
 };
 
 #endif

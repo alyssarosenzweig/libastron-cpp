@@ -1,5 +1,5 @@
 CXX=clang++
-FLAGS=-std=c++0x -I.
+FLAGS=-std=c++0x -I. -g
 LIBS=-lbamboo -lboost_system
 
 all: ConnectionRepository.o Connection.o test_air.o
@@ -13,3 +13,6 @@ Connection.o: Connection.cpp
 
 test_air.o: test_air.cpp
 	$(CXX) -c test_air.cpp $(FLAGS)
+
+clean:
+	rm *.o
