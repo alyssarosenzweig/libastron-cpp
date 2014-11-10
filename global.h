@@ -8,6 +8,9 @@
 #include <bamboo/module/Class.h>
 #include <bamboo/module/Method.h>
 #include <bamboo/dcfile/parse.h>
+#include <bamboo/wire/Datagram.h>
+#include <bamboo/wire/DatagramIterator.h>
+
 using namespace bamboo;
 using namespace std;
 
