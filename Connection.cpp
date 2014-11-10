@@ -34,6 +34,6 @@ void Connection::send(Datagram dg) {
 	size[0] = dg.size() & 0x00FF;
 	size[1] = dg.size() >> 8;
 
-	boost::asio::write(*m_socket, boost::asio::buffer(size, 2);
+	boost::asio::write(*m_socket, boost::asio::buffer(size, 2));
 	boost::asio::write(*m_socket, boost::asio::buffer(dg.data(), dg.size()));
 }
