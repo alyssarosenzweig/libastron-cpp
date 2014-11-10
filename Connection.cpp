@@ -43,7 +43,7 @@ void Connection::close() {
 	m_socket->close(ec);
 }
 
-void Connection::poll() {
+void Connection::poll(function<void(uint8_t* data, uint16_t len)> on_data) {
 	for(;;) {
 		uint16_t len;
 		boost::asio::read(*m_socket, boost::asio::buffer(&len, 2));
@@ -51,6 +51,6 @@ void Connection::poll() {
 		uint8_t* buffer = new uint8_t [len];
 		boost::asio::read(*m_socket, boost::asio::buffer(buffer, len));
 
-		printf("Read len %d bytes\n", len);
+		on_data(buffer, len);
 	}
 }

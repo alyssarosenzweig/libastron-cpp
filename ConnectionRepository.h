@@ -17,6 +17,8 @@ private:
 	string m_dcFile;
 	string m_host;
 	uint16_t m_port;
+
+	void on_data(uint8_t* data, uint16_t len);
 };
 
 #endif

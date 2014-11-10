@@ -28,6 +28,17 @@ void ConnectionRepository::close() {
 	m_connection.close();
 }
 
+void ConnectionRepository::on_data(uint8_t* data, uint16_t len) {
+	printf("%d bytes received\n", len);
+}
+
 void ConnectionRepository::loop() {
-	m_connection.poll();
+	ConnectionRepository* self = this;
+
+	m_connection.poll(
+		[&](uint8_t* data, uint16_t len) {
+			printf("Hello from within the lambda!\n");
+			self->on_data(data, len);
+		}
+	);
 }
