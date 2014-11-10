@@ -2,6 +2,7 @@
 #define __DISTRIBUTED_OBJECT_H_
 
 #include "ChannelWatcher.h"
+#include "msgtypes.h"
 
 class DistributedObject : public ChannelWatcher {
 public:
