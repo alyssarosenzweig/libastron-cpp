@@ -37,3 +37,8 @@ void Connection::send(Datagram dg) {
 	boost::asio::write(*m_socket, boost::asio::buffer(size, 2));
 	boost::asio::write(*m_socket, boost::asio::buffer(dg.data(), dg.size()));
 }
+
+void Connection::close() {
+	boost::system::error_code ec;
+	m_socket->close(ec);
+}

@@ -11,4 +11,6 @@ int main() {
 	dg.add_uint16(9012);
 	dg.add_string("libastron-c++");
 	repo.m_connection.send(dg);
+
+	repo.m_connection.close();
 }
