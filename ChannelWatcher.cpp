@@ -1,3 +1,5 @@
+#include "ChannelWatcher.h"
+
 ChannelWatcher::ChannelWatcher(uint64_t channel) : m_channel(channel)
 {
 

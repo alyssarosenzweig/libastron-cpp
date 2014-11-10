@@ -32,10 +32,10 @@ void AIRepository::control_header(Datagram* dg, uint16_t msgtype) {
 	dg->add_uint16(msgtype);
 }
 
-void AIRepository::subscribe_channel(uint64_t channel) {
+void AIRepository::subscribe_channel(ChannelWatcher channel) {
 	Datagram dg;
 	control_header(&dg, CONTROL_ADD_CHANNEL);
-	dg.add_uint64(channel);
+	dg.add_uint64(channel.getChannel());
 	send(dg);
 }
 

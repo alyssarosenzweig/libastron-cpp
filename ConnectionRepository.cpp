@@ -29,21 +29,6 @@ void ConnectionRepository::close() {
 }
 
 void ConnectionRepository::on_data(uint8_t* data, uint16_t len) {
-	Datagram dg(data, len);
-	DatagramIterator di(dg);
-
-	uint8_t num_recipients = di.read_uint8();
-	vector<uint64_t> recipients;
-
-	while(num_recipients--) {
-		uint64_t recipient = di.read_uint64();
-		recipients.push_back(recipient);
-	}
-
-	uint64_t sender = di.read_uint64();
-	uint16_t msgtype = di.read_uint16();
-
-	cout << sender << " sent " << msgtype << " to " << recipients[0] << endl;
 }
 
 void ConnectionRepository::loop() {

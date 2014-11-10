@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include "ConnectionRepository.h"
+#include "ChannelWatcher.h"
 
 class AIRepository : public ConnectionRepository {
 public:
@@ -13,8 +14,11 @@ public:
 	void internal_header(Datagram* dg, vector<uint64_t> recipients, uint64_t sender, uint16_t msgtype);
 	void control_header(Datagram* dg, uint16_t msgtype);
 
-	void subscribe_channel(uint64_t channel);
+	void subscribe_channel(ChannelWatcher channel);
 	void unsubscribe_channel(uint64_t channel);
+
+private:
+	vector<ChannelWatcher> m_watchers;
 };
 
 #endif
