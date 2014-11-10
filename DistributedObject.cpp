@@ -23,9 +23,10 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 			for(int i = 0; i < method->num_parameters(); ++i) {
 				Parameter* param = method->get_parameter(i);
 				Type* ptype = param->type();
+				Value val(ptype);
 
 				if(ptype->subtype() == kTypeVarstring) {
-					cout << di->read_string() << endl;
+					val.string_ = di->read_string();
 				} else {
 					cout << "TODO: support actually reading type " << ptype->to_string() << endl;
 				}
