@@ -20,6 +20,8 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 			Type* fieldType = field->type();
 			Method* method = field->type()->as_method();
 
+			vector<Value> arguments;
+
 			for(int i = 0; i < method->num_parameters(); ++i) {
 				Parameter* param = method->get_parameter(i);
 				Type* ptype = param->type();
@@ -30,6 +32,8 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 				} else {
 					cout << "TODO: support actually reading type " << ptype->to_string() << endl;
 				}
+
+				arguments.push_back(val);
 			}
 
 			cout << "Field " << field->name() << method->to_string() << endl;
