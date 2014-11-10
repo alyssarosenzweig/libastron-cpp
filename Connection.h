@@ -1,3 +1,6 @@
+#ifndef __CONNECTION_H_INCLUDED_
+#define __CONNECTION_H_INCLUDED_
+
 #include "global.h"
 
 #include <boost/asio.hpp>
@@ -13,3 +16,5 @@ private:
 	uint16_t m_port;
 	shared_ptr<boost::asio::ip::tcp::socket> m_socket;
 };
+
+#endif

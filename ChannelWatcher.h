@@ -6,7 +6,7 @@
 class ChannelWatcher {
 public:
 	ChannelWatcher(uint64_t);
-	virtual void message(DatagramIterator dg, uint64_t sender, uint16_t msgtype);
+	virtual void message(DatagramIterator* dg, uint64_t sender, uint16_t msgtype);
 
 	uint64_t getChannel() {
 		return m_channel;

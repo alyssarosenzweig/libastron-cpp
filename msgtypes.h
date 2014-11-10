@@ -1,3 +1,6 @@
+#ifndef __MSGTYPES_H_
+#define __MSGTYPES_H_
+
 #include "global.h"
 
 /* Message boolean macros */
@@ -141,3 +144,5 @@ enum MessageTypes {
     DBSERVER_OBJECT_DELETE_FIELDS             = 3031,
     DBSERVER_OBJECT_DELETE                    = 3032,
 };
+
+#endif
