@@ -9,5 +9,5 @@ public:
 private:
 	string m_host;
 	uint16_t m_port;
-	boost::asio::ip::tcp::socket m_socket;
+	shared_ptr<boost::asio::ip::tcp::socket> m_socket;
 };
