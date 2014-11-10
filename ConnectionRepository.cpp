@@ -30,6 +30,8 @@ void ConnectionRepository::close() {
 
 void ConnectionRepository::on_data(uint8_t* data, uint16_t len) {
 	printf("%d bytes received\n", len);
+	Datagram dg(data, len);
+	printf("Datagram size %d of %d\n", dg.size(), dg.cap());
 }
 
 void ConnectionRepository::loop() {
