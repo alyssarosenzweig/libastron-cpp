@@ -37,6 +37,8 @@ void AIRepository::subscribe_channel(ChannelWatcher channel) {
 	control_header(&dg, CONTROL_ADD_CHANNEL);
 	dg.add_uint64(channel.getChannel());
 	send(dg);
+
+	m_watchers.push_back(channel);
 }
 
 void AIRepository::unsubscribe_channel(uint64_t channel) {
@@ -44,4 +46,6 @@ void AIRepository::unsubscribe_channel(uint64_t channel) {
 	control_header(&dg, CONTROL_REMOVE_CHANNEL);
 	dg.add_uint64(channel);
 	send(dg);
+
+	// FIXME: remove channel watcher
 }
