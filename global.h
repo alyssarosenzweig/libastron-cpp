@@ -10,6 +10,7 @@
 #include <bamboo/dcfile/parse.h>
 #include <bamboo/wire/Datagram.h>
 #include <bamboo/wire/DatagramIterator.h>
+#include <bamboo/module/Value.h>
 
 using namespace bamboo;
 using namespace std;

@@ -17,8 +17,20 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 
 			Module* module = cr->getModule();
 			Field* field = module->field_by_id(field_id);
+			Method* method = field->type()->as_method();
 
-			cout << "Field " << field->name() << endl;
+			for(int i = 0; i < method->num_parameters(); ++i) {
+				Parameter* param = method->get_parameter(i);
+				Type* ptype = param->type();
+
+				if(ptype->subtype() == kTypeVarstring) {
+					cout << di->read_string() << endl;
+				} else {
+					cout << "TODO: support actually reading type " << ptype->to_string() << endl;
+				}
+			}
+
+			cout << "Field " << field->name() << method->to_string() << endl;
 			break;
 		}
 		default:
