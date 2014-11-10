@@ -11,7 +11,7 @@ Connection::Connection(boost::asio::io_service* io_service, string host, uint16_
 	// boost example
 	// http://www.boost.org/doc/libs/1_42_0/doc/html/boost_asio/tutorial/tutdaytime1/src.html
 
-	m_socket = make_shared<boost::asio::ip::tcp::socket>(boost::asio::ip::tcp::socket(*io_service));
+	m_socket = make_shared<tcp::socket>(tcp::socket(*io_service));
 
     tcp::resolver resolver(*io_service);
     tcp::resolver::query query(m_host, to_string(m_port));;
