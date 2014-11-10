@@ -7,7 +7,7 @@ ConnectionRepository::ConnectionRepository(string host, uint16_t port, string dc
 												m_dcFile(dcFile),
 												m_host(host),
 												m_port(port),
-												m_connection(Connection(m_host, m_port))
+												m_connection(Connection(host, port))
 {
 	cout << "Initializing ConnectionRepository with dcFile " << dcFile << endl;
 	
