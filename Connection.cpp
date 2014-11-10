@@ -30,5 +30,10 @@ Connection::Connection(boost::asio::io_service* io_service, string host, uint16_
 }
 
 void Connection::send(Datagram dg) {
+	unsigned char size[2];
+	size[0] = dg.size() & 0x00FF;
+	size[1] = dg.size() >> 8;
+
+	boost::asio::write(*m_socket, boost::asio::buffer(size, 2);
 	boost::asio::write(*m_socket, boost::asio::buffer(dg.data(), dg.size()));
 }
