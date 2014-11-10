@@ -1,4 +1,5 @@
 #include "AIRepository.h"
+#include "msgtypes.h"
 
 AIRepository::AIRepository(boost::asio::io_service* io_service,
 				string host,
@@ -29,4 +30,18 @@ void AIRepository::control_header(Datagram* dg, uint16_t msgtype) {
 	dg->add_uint64(1);
 
 	dg->add_uint16(msgtype);
+}
+
+void AIRepository::subscribe_channel(uint64_t channel) {
+	Datagram dg;
+	control_header(&dg, CONTROL_ADD_CHANNEL);
+	dg.add_uint64(channel);
+	send(dg);
+}
+
+void AIRepository::unsubscribe_channel(uint64_t channel) {
+	Datagram dg;
+	control_header(&dg, CONTROL_REMOVE_CHANNEL);
+	dg.add_uint64(channel);
+	send(dg);
 }
