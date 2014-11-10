@@ -27,3 +27,7 @@ void ConnectionRepository::send(Datagram dg) {
 void ConnectionRepository::close() {
 	m_connection.close();
 }
+
+void ConnectionRepository::loop() {
+	m_connection.poll();
+}

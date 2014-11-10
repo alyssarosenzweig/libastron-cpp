@@ -11,5 +11,7 @@ int main() {
 	dg.add_string("libastron-c++");
 	repo.send(dg);
 
+	repo.loop();
+
 	repo.close();
 }

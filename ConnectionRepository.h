@@ -9,6 +9,7 @@ public:
 	ConnectionRepository(boost::asio::io_service* io_service, string m_host, uint16_t m_port, string dcFile);
 	void send(Datagram dg);
 	void close();
+	void loop();
 private:
 	Module* m_module;
 	Connection m_connection;

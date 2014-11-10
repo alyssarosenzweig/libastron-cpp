@@ -42,3 +42,15 @@ void Connection::close() {
 	boost::system::error_code ec;
 	m_socket->close(ec);
 }
+
+void Connection::poll() {
+	for(;;) {
+		uint16_t len;
+		boost::asio::read(*m_socket, boost::asio::buffer(&len, 2));
+
+		uint8_t* buffer = new uint8_t [len];
+		boost::asio::read(*m_socket, boost::asio::buffer(buffer, len));
+
+		printf("Read len %d bytes\n", len);
+	}
+}
