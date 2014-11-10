@@ -1,5 +1,6 @@
 #include <ConnectionRepository.h>
 
 int main() {
-	ConnectionRepository repo("localhost", 7199, "simple_example.dc");
+	boost::asio::io_service io_service;
+	ConnectionRepository repo(&io_service, "localhost", 7199, "simple_example.dc");
 }
