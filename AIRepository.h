@@ -10,8 +10,8 @@ public:
 				string host,
 				uint16_t port,
 				string dcFile);
-	void internal_header(Datagram dg, vector<uint64_t> recipients, uint64_t sender, uint16_t msgtype);
-	void control_header(Datagram dg, uint16_t msgtype);
+	void internal_header(Datagram* dg, vector<uint64_t> recipients, uint64_t sender, uint16_t msgtype);
+	void control_header(Datagram* dg, uint16_t msgtype);
 };
 
 #endif
