@@ -1,7 +1,7 @@
 #include <bamboo/wire/Datagram.h>
 #include <AIRepository.h>
 #include <msgtypes.h>
-#include <ChannelWatcher.h>
+#include <DistributedObject.h>
 
 int main() {
 	boost::asio::io_service io_service;
@@ -12,7 +12,7 @@ int main() {
 	dg.add_string("libastron-c++");
 	repo.send(dg);
 
-	ChannelWatcher loginWatcher(1234);
+	DistributedObject loginWatcher(1234);
 
 	repo.subscribe_channel(&loginWatcher);
 
