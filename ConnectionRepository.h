@@ -10,6 +10,10 @@ public:
 	void send(Datagram dg);
 	void close();
 	void loop();
+
+	Module* getModule() {
+		return m_module;
+	};
 protected:
 	Module* m_module;
 	Connection m_connection;

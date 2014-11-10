@@ -14,6 +14,11 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 			uint16_t field_id = di->read_uint16();
 
 			cout << "Updating field " << field_id << " on DO " << do_id << endl;
+
+			Module* module = cr->getModule();
+			Field* field = module->field_by_id(field_id);
+
+			cout << "Field " << field->name() << endl;
 			break;
 		}
 		default:
