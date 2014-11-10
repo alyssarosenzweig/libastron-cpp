@@ -11,7 +11,4 @@
 using namespace bamboo;
 using namespace std;
 
-//vector<string> astron_keywords {"clsend", "ownsend", "clrecv", "ownrecv",
- //                               "airecv", "broadcast", "ram", "required", "db"};
-
 #endif

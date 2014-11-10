@@ -6,6 +6,9 @@
 class ConnectionRepository {
 public:
 	ConnectionRepository(string dcFile);
+private:
+	Module* m_module;
+	string m_dcFile;
 };
 
 #endif
