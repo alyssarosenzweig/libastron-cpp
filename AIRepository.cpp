@@ -67,7 +67,7 @@ void AIRepository::on_data(uint8_t* data, uint16_t len) {
 
     for(uint64_t recipient : recipients) {
     	if(m_watchers.find(recipient) != m_watchers.end()) {
-    		m_watchers[recipient]->message(&di, sender, msgtype);
+    		m_watchers[recipient]->message(this, &di, sender, msgtype);
     	} else {
     		cout << "No one is listening to " << recipient << endl;
     	}

@@ -7,7 +7,7 @@
 class DistributedObject : public ChannelWatcher {
 public:
 	DistributedObject(uint32_t do_id);
-	void message(DatagramIterator* dg, uint64_t sender, uint16_t msgtype);
+	void message(ConnectionRepository* cr, DatagramIterator* dg, uint64_t sender, uint16_t msgtype);
 private:
 	uint32_t m_do_id;
 };

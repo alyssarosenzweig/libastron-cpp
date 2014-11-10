@@ -5,7 +5,7 @@ DistributedObject::DistributedObject(uint32_t do_id) : ChannelWatcher(do_id), m_
 
 }
 
-void DistributedObject::message(DatagramIterator* di, uint64_t sender, uint16_t msgtype)
+void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, uint64_t sender, uint16_t msgtype)
 {
 	switch(msgtype) {
 		case STATESERVER_OBJECT_SET_FIELD: {
