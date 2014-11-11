@@ -39,3 +39,7 @@ void ConnectionRepository::loop() {
 		}
 	);
 }
+
+void ConnectionRepository::addRequiredFields(Datagram* dg, DistributedObject* obj) {
+
+}

@@ -16,6 +16,10 @@ public:
 	Module* getModule() {
 		return m_module;
 	};
+
+	virtual void generateWithRequiredAndId(DistributedObject* obj, uint32_t doId, uint32_t parentId, uint32_t zoneId, vector<Method*> optionals) {};
+	void addRequiredFields(Datagram* dg, DistributedObject* obj);
+
 protected:
 	Module* m_module;
 	Connection m_connection;

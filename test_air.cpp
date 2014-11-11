@@ -7,6 +7,7 @@
 class DistributedMaproot : public DistributedObject {
 public:
 	DistributedMaproot() : DistributedObject() {};
+	string classname() { return "DistributedMaproot"; };
 
 	bool fieldUpdate(string fieldName, vector<Value*> arguments) {
 		if(fieldName == "createAvatar") {
@@ -25,6 +26,7 @@ public:
 class LoginManager : public DistributedObject {
 public:
 	LoginManager(uint64_t do_id) : DistributedObject(do_id) {};
+	string classname() { return "LoginManager"; };
 
 	bool fieldUpdate(string fieldName, vector<Value*> arguments) {
 		cout << "LoginManager " << fieldName << " updated" << endl;
@@ -78,6 +80,7 @@ int main() {
 	repo.subscribe_channel(&loginWatcher);
 
 	DistributedMaproot maproot;
+	maproot.setCR(&repo);
 	maproot.generateWithRequiredAndId(10000, 0, 1);
 
 	repo.loop();

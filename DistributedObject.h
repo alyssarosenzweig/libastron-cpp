@@ -12,6 +12,10 @@ public:
 	DistributedObject(uint32_t do_id);
 	DistributedObject();
 
+	virtual string classname() {
+		return "DistributedObject";
+	}
+
 	void message(ConnectionRepository* cr, DatagramIterator* dg, uint64_t sender, uint16_t msgtype);
 	virtual bool fieldUpdate(string fieldName, vector<Value*> arguments) {
 		return false;
@@ -28,8 +32,7 @@ public:
 	void sendUpdate(string fieldName, vector<Value*> arguments);
 
 	void generateWithRequiredAndId(uint32_t doId, uint32_t parentId, uint32_t zoneId) {
-		AIRepository* cr = (AIRepository*) m_cr;
-		cr->generateWithRequiredAndId(this, doId, parentId, zoneId, vector<Method*> {});
+		m_cr->generateWithRequiredAndId(this, doId, parentId, zoneId, vector<Method*> {});
 	};
 protected:
 	ConnectionRepository* m_cr;

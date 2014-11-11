@@ -11,7 +11,8 @@ public:
 				string host,
 				uint16_t port,
 				string dcFile,
-				uint64_t channel);
+				uint64_t channel,
+				uint64_t stateserver);
 	void internal_header(Datagram* dg, vector<uint64_t> recipients, uint64_t sender, uint16_t msgtype);
 	void control_header(Datagram* dg, uint16_t msgtype);
 
