@@ -111,13 +111,14 @@ void AIRepository::generateWithRequiredAndId(
 	send(dg);
 }
 
-void AIRepository::sendUpdate(DistributedObject* obj, string field, vector<Value*> arguments) {
+void AIRepository::sendUpdate(DistributedObject* obj, string fieldName, vector<Value*> arguments) {
+	cout << "Updating field " << obj->classname() << "::" << fieldName << endl;
 	Class* dclass = m_module->class_by_name(obj->classname());
-	Field* field = dclass->field_by_name(field);	
+	Field* field = dclass->field_by_name(fieldName);	
 
 	Datagram dg;
-	internal_header(&dg, vector<uint64_t>{ obj->get_do_id() }, m_air_id, STATESERVER_OBJECT_SET_FIELD);	
-	dg.add_uint32(obj->get_do_id());
+	internal_header(&dg, vector<uint64_t>{ obj->getDoId() }, m_air_id, STATESERVER_OBJECT_SET_FIELD);	
+	dg.add_uint32(obj->getDoId());
 	dg.add_uint16(field->id());
 	
 	for(Value* argument : arguments) {

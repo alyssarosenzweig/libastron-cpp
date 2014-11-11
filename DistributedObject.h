@@ -29,7 +29,7 @@ public:
 		m_do_id = doId;
 	};
 
-	void getDoId() {
+	uint32_t getDoId() {
 		return m_do_id;
 	}
 
