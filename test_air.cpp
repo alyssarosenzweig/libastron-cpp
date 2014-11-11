@@ -34,16 +34,19 @@ public:
 
 class DistributedMaproot : public DistributedObject {
 public:
-	DistributedMaproot(uint64_t do_id) : DistributedObject(do_id) {};
+	DistributedMaproot() : DistributedObject() {};
 
-	bool fieldUpdate(string fieldName, vector<Value> arguments) {
+	bool fieldUpdate(string fieldName, vector<Value*> arguments) {
 		if(fieldName == "createAvatar") {
 			return createAvatar(arguments[0]->uint_);
 		}
+
+		return false;
 	}
 
 	bool createAvatar(uint64_t channel) {
 		cout << "Create avatar at channel " << channel;
+		return true;
 	}
 };
 
@@ -58,8 +61,9 @@ int main() {
 
 	LoginManager loginWatcher(1234);
 	loginWatcher.setCR(&repo);
-
 	repo.subscribe_channel(&loginWatcher);
+
+	DistributedMaproot maproot;
 
 	repo.loop();
 }

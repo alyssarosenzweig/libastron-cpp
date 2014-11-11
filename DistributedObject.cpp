@@ -6,6 +6,11 @@ DistributedObject::DistributedObject(uint32_t do_id) : ChannelWatcher(do_id), m_
 
 }
 
+DistributedObject::DistributedObject() : ChannelWatcher(0), m_do_id(0)
+{
+	
+}
+
 void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, uint64_t sender, uint16_t msgtype)
 {
 	switch(msgtype) {
