@@ -10,12 +10,12 @@ public:
 
 	};
 
-	void message(ConnectionRepository* cr, DatagramIterator* di, uint64_t sender, uint16_t msgtype) {
+	void message(AIRepository* cr, DatagramIterator* di, uint64_t sender, uint16_t msgtype) {
 		cout << "AIWatcher message type " << msgtype << endl;
 
 		switch(msgtype) {
 			case STATESERVER_OBJECT_SET_FIELD: {
-				//((AIRepository*) cr)->set_message_sender(sender);
+				cr->set_message_sender(sender);
 				cr->handleSetField(di);
 				break;
 			};
