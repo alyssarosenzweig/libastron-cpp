@@ -10,7 +10,8 @@ public:
 	AIRepository(boost::asio::io_service* io_service,
 				string host,
 				uint16_t port,
-				string dcFile);
+				string dcFile,
+				uint64_t channel);
 	void internal_header(Datagram* dg, vector<uint64_t> recipients, uint64_t sender, uint16_t msgtype);
 	void control_header(Datagram* dg, uint16_t msgtype);
 
@@ -32,6 +33,7 @@ private:
 
 	map<uint64_t, ChannelWatcher*> m_watchers;
 	uint64_t m_message_sender;
+	uint64_t m_air_id;
 };
 
 #endif
