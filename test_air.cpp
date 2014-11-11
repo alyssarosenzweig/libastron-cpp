@@ -11,7 +11,7 @@ public:
 		cout << "LoginManager " << fieldName << " updated" << endl;
 
 		if(fieldName == "login") {
-			return login(arguments[0]->string_, arguments[0]->string_);
+			return login(arguments[0]->string_, arguments[1]->string_);
 		}
 
 		return false;
@@ -29,6 +29,21 @@ public:
 			((AIRepository*) m_cr)->set_client_state(sender, 2);
 		}
 		return true;
+	}
+};
+
+class DistributedMaproot : public DistributedObject {
+public:
+	DistributedMaproot(uint64_t do_id) : DistributedObject(do_id) {};
+
+	bool fieldUpdate(string fieldName, vector<Value> arguments) {
+		if(fieldName == "createAvatar") {
+			return createAvatar(arguments[0]->uint_);
+		}
+	}
+
+	bool createAvatar(uint64_t channel) {
+		cout << "Create avatar at channel " << channel;
 	}
 };
 
