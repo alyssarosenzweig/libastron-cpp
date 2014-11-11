@@ -33,6 +33,7 @@ int main() {
 	repo.send(dg);
 
 	LoginManager loginWatcher(1234);
+	loginWatcher.setCR(&repo);
 
 	repo.subscribe_channel(&loginWatcher);
 
