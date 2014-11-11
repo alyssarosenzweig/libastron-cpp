@@ -34,6 +34,7 @@ public:
 	void sendUpdate(DistributedObject* obj, string field, vector<Value*> arguments);
 	void set_ai(DistributedObject* obj);
 	void client_add_interest(uint64_t clientChannel, uint16_t interestId, uint32_t parentId, uint32_t zoneId);
+	void set_owner(uint32_t doId, uint64_t newOwner);
 
 private:
 	void on_data(uint8_t* data, uint16_t len);

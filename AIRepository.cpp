@@ -146,3 +146,10 @@ void AIRepository::client_add_interest(uint64_t clientChannel, uint16_t interest
     dg.add_uint32(zoneId);
     send(dg);
 }
+
+void AIRepository::set_owner(uint32_t doId, uint64_t newOwner) {
+	Datagram dg;
+	internal_header(&dg, vector<uint64_t>{ doId }, m_air_id, STATESERVER_OBJECT_SET_OWNER);
+	dg.add_uint64(newOwner);
+	send(dg);
+}
