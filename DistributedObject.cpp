@@ -36,7 +36,7 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 				arguments.push_back(val);
 			}
 
-			cout << "Field " << field->name() << method->to_string() << endl;
+			fieldUpdate(field->name(), arguments);
 			break;
 		}
 		default:

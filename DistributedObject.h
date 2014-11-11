@@ -8,6 +8,9 @@ class DistributedObject : public ChannelWatcher {
 public:
 	DistributedObject(uint32_t do_id);
 	void message(ConnectionRepository* cr, DatagramIterator* dg, uint64_t sender, uint16_t msgtype);
+	virtual void fieldUpdate(string fieldName, vector<Value> arguments) {
+		
+	};
 private:
 	uint32_t m_do_id;
 };
