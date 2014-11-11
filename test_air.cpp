@@ -6,8 +6,17 @@
 class LoginManager : public DistributedObject {
 public:
 	LoginManager(uint64_t do_id) : DistributedObject(do_id) {};
+
 	void fieldUpdate(string fieldName, vector<Value> arguments) {
-		cout << "LoginManager update on field " << fieldName << endl;
+		cout << "LoginManager " << fieldName << " updated" << endl;
+
+		if(fieldName == "login") {
+			login(arguments[0].string_, arguments[0].string_);
+		}
+	}
+
+	void login(string username, string password) {
+		cout << "Login attempt from " << username << " with pass " << password << endl;
 	}
 };
 
