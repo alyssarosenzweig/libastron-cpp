@@ -1,36 +1,8 @@
 #include <bamboo/wire/Datagram.h>
+#include <bamboo/module/Numeric.h>
 #include <AIRepository.h>
 #include <msgtypes.h>
 #include <DistributedObject.h>
-
-class LoginManager : public DistributedObject {
-public:
-	LoginManager(uint64_t do_id) : DistributedObject(do_id) {};
-
-	bool fieldUpdate(string fieldName, vector<Value*> arguments) {
-		cout << "LoginManager " << fieldName << " updated" << endl;
-
-		if(fieldName == "login") {
-			return login(arguments[0]->string_, arguments[1]->string_);
-		}
-
-		return false;
-	}
-
-	bool login(string username, string password) {
-		uint64_t sender = ((AIRepository*) m_cr)->get_message_sender();
-
-		cout << "Login attempt at channel " << sender 
-			 << " from " << username 
-			 << " with pass " << password
-			 << endl;
-		
-		if(username == "guest" && password == "guest") {
-			((AIRepository*) m_cr)->set_client_state(sender, 2);
-		}
-		return true;
-	}
-};
 
 class DistributedMaproot : public DistributedObject {
 public:
@@ -49,6 +21,48 @@ public:
 		return true;
 	}
 };
+
+class LoginManager : public DistributedObject {
+public:
+	LoginManager(uint64_t do_id) : DistributedObject(do_id) {};
+
+	bool fieldUpdate(string fieldName, vector<Value*> arguments) {
+		cout << "LoginManager " << fieldName << " updated" << endl;
+
+		if(fieldName == "login") {
+			return login(arguments[0]->string_, arguments[1]->string_);
+		}
+
+		return false;
+	};
+
+	bool login(string username, string password) {
+		uint64_t sender = ((AIRepository*) m_cr)->get_message_sender();
+
+		cout << "Login attempt at channel " << sender 
+			 << " from " << username 
+			 << " with pass " << password
+			 << endl;
+		
+		if(username == "guest" && password == "guest") {
+			Value* channel = new Value(new Numeric(kTypeUint64));
+			channel->uint_ = sender;
+
+			m_maproot->sendUpdate("createAvatar", vector<Value*> {channel});
+			
+			((AIRepository*) m_cr)->set_client_state(sender, 2);
+		}
+		return true;
+	};
+
+	void setMaproot(DistributedMaproot* maproot) {
+		m_maproot = maproot;
+	};
+
+private:
+	DistributedMaproot* m_maproot;
+};
+
 
 int main() {
 	boost::asio::io_service io_service;

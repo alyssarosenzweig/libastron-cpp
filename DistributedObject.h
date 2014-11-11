@@ -9,7 +9,7 @@ class DistributedObject : public ChannelWatcher {
 public:
 	DistributedObject(uint32_t do_id);
 	DistributedObject();
-	
+
 	void message(ConnectionRepository* cr, DatagramIterator* dg, uint64_t sender, uint16_t msgtype);
 	virtual bool fieldUpdate(string fieldName, vector<Value*> arguments) {
 		return false;
@@ -18,6 +18,8 @@ public:
 	void setCR(ConnectionRepository* cr) {
 		m_cr = cr;
 	};
+
+	void sendUpdate(string fieldName, vector<Value*> arguments);
 protected:
 	ConnectionRepository* m_cr;
 	uint32_t m_do_id;

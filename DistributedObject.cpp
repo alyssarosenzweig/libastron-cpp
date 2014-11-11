@@ -8,7 +8,7 @@ DistributedObject::DistributedObject(uint32_t do_id) : ChannelWatcher(do_id), m_
 
 DistributedObject::DistributedObject() : ChannelWatcher(0), m_do_id(0)
 {
-	
+
 }
 
 void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, uint64_t sender, uint16_t msgtype)
@@ -56,4 +56,9 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 			cout << "DistributedObject " << m_do_id << ": " << sender << " sent an unknown msgtype " << msgtype << endl;
 		}
 	}
+}
+
+void DistributedObject::sendUpdate(string field, vector<Value*> arguments) {
+	cout << "Sending update" << endl;
+	cout << "field " << field << endl;
 }
