@@ -36,6 +36,7 @@ private:
 	map<uint64_t, ChannelWatcher*> m_watchers;
 	uint64_t m_message_sender;
 	uint64_t m_air_id;
+	uint64_t m_stateserver;
 };
 
 #endif

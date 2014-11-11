@@ -66,7 +66,7 @@ private:
 
 int main() {
 	boost::asio::io_service io_service;
-	AIRepository repo(&io_service, "localhost", 7199, "simple_example.dc", 1337);
+	AIRepository repo(&io_service, "localhost", 7199, "simple_example.dc", 1337, 402000);
 
 	Datagram dg;
 	repo.control_header(&dg, CONTROL_SET_CON_NAME);
