@@ -4,6 +4,17 @@
 #include <msgtypes.h>
 #include <DistributedObject.h>
 
+class DistributedAvatar : public DistributedObject {
+public:
+	DistributedAvatar() : DistributedObject() {};
+	string classname() { return "DistributedAvatar"; };
+
+	bool fieldUpdate(string fieldName, vector<Value*> arguments) {
+		cout << "Unhandled fieldUpdate " << fieldName << " for avatar " << m_do_id << endl;
+		return false;
+	}
+};
+
 class DistributedMaproot : public DistributedObject {
 public:
 	DistributedMaproot() : DistributedObject() {};
@@ -19,6 +30,11 @@ public:
 
 	bool createAvatar(uint64_t channel) {
 		cout << "Create avatar at channel " << channel << endl;
+
+		DistributedAvatar avatar;
+		avatar.setCR(m_cr);
+		avatar.generateWithRequired(10000, 0);
+
 		return true;
 	}
 };
@@ -50,9 +66,8 @@ public:
 			Value* channel = new Value(new Numeric(kTypeUint64));
 			channel->uint_ = sender;
 
-			m_maproot->sendUpdate("createAvatar", vector<Value*> {channel});
-			
 			((AIRepository*) m_cr)->set_client_state(sender, 2);
+			m_maproot->sendUpdate("createAvatar", vector<Value*> {channel});
 		}
 		return true;
 	};

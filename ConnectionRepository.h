@@ -18,6 +18,14 @@ public:
 	};
 
 	virtual void generateWithRequiredAndId(DistributedObject* obj, uint32_t doId, uint32_t parentId, uint32_t zoneId, vector<Method*> optionals) {};
+	void generateWithRequired(DistributedObject* obj, uint32_t parentId, uint32_t zone, vector<Method*> optionals) {
+		generateWithRequiredAndId(obj, allocate_doId(), parentId, zone, optionals);
+	}
+
+	uint32_t allocate_doId() {
+		return doId_counter++;
+	}
+
 	void addRequiredFields(Datagram* dg, DistributedObject* obj);
 	virtual void sendUpdate(DistributedObject* obj, string field, vector<Value*> arguments) {};
 	void handleSetField(DatagramIterator* dg);
@@ -31,6 +39,8 @@ protected:
 	string m_dcFile;
 	string m_host;
 	uint16_t m_port;
+
+	uint32_t doId_counter = 100000;
 
 	virtual void on_data(uint8_t* data, uint16_t len);
 

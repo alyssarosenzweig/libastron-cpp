@@ -63,6 +63,8 @@ void ConnectionRepository::handleSetField(DatagramIterator* di) {
 
 		if(ptype->subtype() == kTypeVarstring) {
 			val.string_ = di->read_string();
+		} else if(ptype->subtype() == kTypeUint64) {
+			val.uint_ = di->read_uint64();
 		} else {
 			cout << "TODO: support actually reading type " << ptype->to_string() << endl;
 		}
