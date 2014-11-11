@@ -1,5 +1,6 @@
 #include "AIRepository.h"
 #include "msgtypes.h"
+#include "DistributedObject.h"
 
 AIRepository::AIRepository(boost::asio::io_service* io_service,
 				string host,
@@ -82,4 +83,14 @@ void AIRepository::on_data(uint8_t* data, uint16_t len) {
     		cout << "No one is listening to " << recipient << endl;
     	}
     }
+}
+
+void AIRepository::generateWithRequiredAndId(
+								DistributedObject* obj,
+						 		uint32_t doId, 
+						 		uint32_t parentId, uint32_t zoneId,
+						 		vector<Method*> optionals)
+{
+	obj->setDoId(doId);
+	cout << "generateWithRequiredAndId doId: " << doId << " (" << parentId << "," << zoneId << ")" << endl;
 }

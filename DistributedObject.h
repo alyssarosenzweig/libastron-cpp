@@ -5,6 +5,8 @@
 #include "ChannelWatcher.h"
 #include "msgtypes.h"
 
+#include "AIRepository.h"
+
 class DistributedObject : public ChannelWatcher {
 public:
 	DistributedObject(uint32_t do_id);
@@ -26,7 +28,8 @@ public:
 	void sendUpdate(string fieldName, vector<Value*> arguments);
 
 	void generateWithRequiredAndId(uint32_t doId, uint32_t parentId, uint32_t zoneId) {
-		m_cr->generateWithRequiredAndId(this, doId, parentId, zoneId, vector<Method*> {});
+		AIRepository* cr = (AIRepository*) m_cr;
+		cr->generateWithRequiredAndId(this, doId, parentId, zoneId, vector<Method*> {});
 	};
 protected:
 	ConnectionRepository* m_cr;

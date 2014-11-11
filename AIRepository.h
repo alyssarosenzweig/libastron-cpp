@@ -28,6 +28,8 @@ public:
 		m_message_sender = sender;
 	};
 
+	void generateWithRequiredAndId(DistributedObject* obj, uint32_t doId, uint32_t parentId, uint32_t zoneId, vector<Method*> optionals);
+
 private:
 	void on_data(uint8_t* data, uint16_t len);
 

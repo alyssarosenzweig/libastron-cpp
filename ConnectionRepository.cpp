@@ -39,13 +39,3 @@ void ConnectionRepository::loop() {
 		}
 	);
 }
-
-void ConnectionRepository::generateWithRequiredAndId(
-								DistributedObject* obj,
-						 		uint32_t doId, 
-						 		uint32_t parentId, uint32_t zoneId,
-						 		vector<Method*> optionals)
-{
-	obj->setDoId(doId);
-	cout << "generateWithRequiredAndId doId: " << doId << " (" << parentId << "," << zoneId << ")" << endl;
-}
