@@ -61,4 +61,5 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 void DistributedObject::sendUpdate(string field, vector<Value*> arguments) {
 	cout << "Sending update" << endl;
 	cout << "field " << field << endl;
+	cout << "doId " << m_do_id << endl;
 }
