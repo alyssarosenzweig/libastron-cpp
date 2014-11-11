@@ -18,7 +18,7 @@ public:
 	}
 
 	bool createAvatar(uint64_t channel) {
-		cout << "Create avatar at channel " << channel;
+		cout << "Create avatar at channel " << channel << endl;
 		return true;
 	}
 };
