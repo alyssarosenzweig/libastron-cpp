@@ -43,3 +43,36 @@ void ConnectionRepository::loop() {
 void ConnectionRepository::addRequiredFields(Datagram* dg, DistributedObject* obj) {
 
 }
+
+void ConnectionRepository::handleSetField(DatagramIterator* di) {
+	uint32_t do_id = di->read_uint32();
+	uint16_t field_id = di->read_uint16();
+
+	Module* module = getModule();
+	Field* field = module->field_by_id(field_id);
+	Type* fieldType = field->type();
+	Method* method = field->type()->as_method();
+
+	vector<Value*> arguments;
+	arguments.reserve(method->num_parameters());
+
+	for(int i = 0; i < method->num_parameters(); ++i) {
+		Parameter* param = method->get_parameter(i);
+		Type* ptype = param->type();
+		Value val(ptype);
+
+		if(ptype->subtype() == kTypeVarstring) {
+			val.string_ = di->read_string();
+		} else {
+			cout << "TODO: support actually reading type " << ptype->to_string() << endl;
+		}
+
+		arguments.push_back(&val);
+	}
+
+	DistributedObject* distObj = NULL; // TODO: maintain doId2do tables
+
+	if(!distObj->fieldUpdate(field->name(), arguments)) {
+		cout << "Warning: unhandled field update for doId " << do_id << " field name " << field->name() << endl;
+	}
+}
