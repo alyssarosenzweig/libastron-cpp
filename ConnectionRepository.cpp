@@ -1,4 +1,5 @@
 #include "ConnectionRepository.h"
+#include "DistributedObject.h"
 
 vector<string> astron_keywords {"clsend", "ownsend", "clrecv", "ownrecv",
                                "airecv", "broadcast", "ram", "required", "db"};
@@ -37,4 +38,14 @@ void ConnectionRepository::loop() {
 			on_data(data, len);
 		}
 	);
+}
+
+void ConnectionRepository::generateWithRequiredAndId(
+								DistributedObject* obj,
+						 		uint32_t doId, 
+						 		uint32_t parentId, uint32_t zoneId,
+						 		vector<Method*> optionals)
+{
+	obj->setDoId(doId);
+	cout << "generateWithRequiredAndId doId: " << doId << " (" << parentId << "," << zoneId << ")" << endl;
 }

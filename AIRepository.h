@@ -26,7 +26,7 @@ public:
 
 	void set_message_sender(uint64_t sender) {
 		m_message_sender = sender;
-	}
+	};
 
 private:
 	void on_data(uint8_t* data, uint16_t len);

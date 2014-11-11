@@ -78,6 +78,7 @@ int main() {
 	repo.subscribe_channel(&loginWatcher);
 
 	DistributedMaproot maproot;
+	maproot.generateWithRequiredAndId(10000, 0, 1);
 
 	repo.loop();
 }

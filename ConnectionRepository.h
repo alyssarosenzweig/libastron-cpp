@@ -4,6 +4,8 @@
 #include "global.h"
 #include "Connection.h"
 
+class DistributedObject;
+
 class ConnectionRepository {
 public:
 	ConnectionRepository(boost::asio::io_service* io_service, string m_host, uint16_t m_port, string dcFile);
@@ -14,6 +16,8 @@ public:
 	Module* getModule() {
 		return m_module;
 	};
+
+	void generateWithRequiredAndId(DistributedObject* obj, uint32_t doId, uint32_t parentId, uint32_t zoneId, vector<Method*> optionals);
 protected:
 	Module* m_module;
 	Connection m_connection;

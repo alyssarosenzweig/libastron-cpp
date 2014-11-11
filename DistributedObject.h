@@ -19,7 +19,15 @@ public:
 		m_cr = cr;
 	};
 
+	void setDoId(uint32_t doId) {
+		m_do_id = doId;
+	}
+
 	void sendUpdate(string fieldName, vector<Value*> arguments);
+
+	void generateWithRequiredAndId(uint32_t doId, uint32_t parentId, uint32_t zoneId) {
+		m_cr->generateWithRequiredAndId(this, doId, parentId, zoneId, vector<Method*> {});
+	};
 protected:
 	ConnectionRepository* m_cr;
 	uint32_t m_do_id;
