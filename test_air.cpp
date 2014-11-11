@@ -18,17 +18,23 @@ public:
 	}
 
 	bool login(string username, string password) {
-		cout << "Login attempt at channel " << ((AIRepository*) m_cr)->get_message_sender() 
+		uint64_t sender = ((AIRepository*) m_cr)->get_message_sender();
+
+		cout << "Login attempt at channel " << sender 
 			 << " from " << username 
 			 << " with pass " << password
 			 << endl;
+		
+		if(username == "guest" && password == "guest") {
+			((AIRepository*) m_cr)->set_client_state(sender, 2);
+		}
 		return true;
 	}
 };
 
 int main() {
 	boost::asio::io_service io_service;
-	AIRepository repo(&io_service, "localhost", 7199, "simple_example.dc");
+	AIRepository repo(&io_service, "localhost", 7199, "simple_example.dc", 1337);
 
 	Datagram dg;
 	repo.control_header(&dg, CONTROL_SET_CON_NAME);

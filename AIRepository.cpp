@@ -7,7 +7,8 @@ AIRepository::AIRepository(boost::asio::io_service* io_service,
 				string dcFile,
 				uint64_t channel) : ConnectionRepository(io_service, host, port, dcFile),
 									m_air_id(channel) {
-	subscribe_channel(ChannelWatcher(m_air_id));
+	ChannelWatcher airWatcher(m_air_id);
+	subscribe_channel(&airWatcher);
 }
 
 void AIRepository::internal_header(Datagram* dg, 

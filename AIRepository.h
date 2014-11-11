@@ -18,7 +18,7 @@ public:
 	void subscribe_channel(ChannelWatcher* channel);
 	void unsubscribe_channel(uint64_t channel);
 
-	void setClientState(uint64_t client, uint16_t state);
+	void set_client_state(uint64_t client, uint16_t state);
 
 	uint64_t get_message_sender() {
 		return m_message_sender;
