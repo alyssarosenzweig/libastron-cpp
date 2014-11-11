@@ -6,13 +6,40 @@
 
 class DistributedAvatar : public DistributedObject {
 public:
-	DistributedAvatar() : DistributedObject() {};
+	DistributedAvatar() : DistributedObject() {
+		m_x = 0;
+		m_y = 0;
+		m_z = 0;
+		m_h = 0;
+	};
+
 	string classname() { return "DistributedAvatar"; };
 
 	bool fieldUpdate(string fieldName, vector<Value*> arguments) {
 		cout << "Unhandled fieldUpdate " << fieldName << " for avatar " << m_do_id << endl;
 		return false;
 	}
+
+	vector<Value*> get(string fieldName) {
+		if(fieldName == "setXYZH") {
+			Value* x = new Value(new Numeric(kTypeFloat32));
+			Value* y = new Value(new Numeric(kTypeFloat32));
+			Value* z = new Value(new Numeric(kTypeFloat32));
+			Value* h = new Value(new Numeric(kTypeFloat32));
+
+			x->float_ = m_x;
+			y->float_ = m_y;
+			z->float_ = m_z;
+			h->float_ = m_h;
+
+			return vector<Value*>{ x, y, z, h };
+		} else {
+			cout << "DistributedAvatar unknown field " << fieldName << " requested" << endl;
+			return vector<Value*>{};
+		}
+	}
+private:
+	float m_x, m_y, m_z, m_h;
 };
 
 class DistributedMaproot : public DistributedObject {
