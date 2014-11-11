@@ -17,10 +17,19 @@ public:
 	void subscribe_channel(ChannelWatcher* channel);
 	void unsubscribe_channel(uint64_t channel);
 
+	uint64_t get_message_sender() {
+		return m_message_sender;
+	};
+
+	void set_message_sender(uint64_t sender) {
+		m_message_sender = sender;
+	}
+
 private:
 	void on_data(uint8_t* data, uint16_t len);
 
 	map<uint64_t, ChannelWatcher*> m_watchers;
+	uint64_t m_message_sender;
 };
 
 #endif
