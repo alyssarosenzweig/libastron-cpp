@@ -82,6 +82,7 @@ int main() {
 	DistributedMaproot maproot;
 	maproot.setCR(&repo);
 	maproot.generateWithRequiredAndId(10000, 0, 1);
+	repo.set_ai(&maproot);
 
 	loginWatcher.setMaproot(&maproot);
 

@@ -1,6 +1,7 @@
 #include "AIRepository.h"
 #include "msgtypes.h"
 #include "DistributedObject.h"
+#include "AIWatcher.h"
 
 AIRepository::AIRepository(boost::asio::io_service* io_service,
 				string host,
@@ -9,9 +10,9 @@ AIRepository::AIRepository(boost::asio::io_service* io_service,
 				uint64_t channel,
 				uint64_t stateserver) : ConnectionRepository(io_service, host, port, dcFile),
 									m_air_id(channel),
-									m_stateserver(stateserver) {
-	ChannelWatcher airWatcher(m_air_id);
-	subscribe_channel(&airWatcher);
+									m_stateserver(stateserver),
+									m_airWatcher(channel) {
+	subscribe_channel(&m_airWatcher);
 }
 
 void AIRepository::internal_header(Datagram* dg, 
@@ -79,7 +80,9 @@ void AIRepository::on_data(uint8_t* data, uint16_t len) {
     uint16_t msgtype = di.read_uint16();
 
     for(uint64_t recipient : recipients) {
-    	if(m_watchers.find(recipient) != m_watchers.end()) {
+    	if(m_watchers.count(recipient)) {
+    		cout << m_watchers[recipient] << endl;
+
     		m_watchers[recipient]->message(this, &di, sender, msgtype);
     	} else {
     		cout << "No one is listening to " << recipient << endl;
@@ -125,5 +128,12 @@ void AIRepository::sendUpdate(DistributedObject* obj, string fieldName, vector<V
 		dg.add_value(argument);
 	}
 
+	send(dg);
+}
+
+void AIRepository::set_ai(DistributedObject* obj) {
+	Datagram dg;
+	internal_header(&dg, vector<uint64_t>{ obj->getDoId() }, m_air_id, STATESERVER_OBJECT_SET_AI);
+	dg.add_uint64(m_air_id);
 	send(dg);
 }

@@ -4,6 +4,7 @@
 #include "global.h"
 #include "ConnectionRepository.h"
 #include "ChannelWatcher.h"
+#include "AIWatcher.h"
 
 class AIRepository : public ConnectionRepository {
 public:
@@ -31,6 +32,7 @@ public:
 
 	void generateWithRequiredAndId(DistributedObject* obj, uint32_t doId, uint32_t parentId, uint32_t zoneId, vector<Method*> optionals);
 	void sendUpdate(DistributedObject* obj, string field, vector<Value*> arguments);
+	void set_ai(DistributedObject* obj);
 
 private:
 	void on_data(uint8_t* data, uint16_t len);
@@ -39,6 +41,7 @@ private:
 	uint64_t m_message_sender;
 	uint64_t m_air_id;
 	uint64_t m_stateserver;
+	AIWatcher m_airWatcher;
 };
 
 #endif
