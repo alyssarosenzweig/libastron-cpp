@@ -19,6 +19,7 @@ public:
 
 	virtual void generateWithRequiredAndId(DistributedObject* obj, uint32_t doId, uint32_t parentId, uint32_t zoneId, vector<Method*> optionals) {};
 	void addRequiredFields(Datagram* dg, DistributedObject* obj);
+	virtual void sendUpdate(DistributedObject* obj, string field, vector<Value*> arguments) {};
 
 protected:
 	Module* m_module;

@@ -27,6 +27,10 @@ public:
 
 	void setDoId(uint32_t doId) {
 		m_do_id = doId;
+	};
+
+	void getDoId() {
+		return m_do_id;
 	}
 
 	void sendUpdate(string fieldName, vector<Value*> arguments);
