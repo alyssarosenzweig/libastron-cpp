@@ -41,7 +41,18 @@ void ConnectionRepository::loop() {
 }
 
 void ConnectionRepository::addRequiredFields(Datagram* dg, DistributedObject* obj) {
+	Class* dclass = m_module->class_by_name(obj->classname());
+	
+	for(int i = 0; i < dclass->num_fields(); ++i) {
+		Field* field = dclass->get_field(i);
 
+		if(field->has_keyword("required")) {
+			vector<Value*> arguments = obj->get(field->name());
+			for(Value* argument : arguments) {
+				dg->add_value(argument);
+			}
+		}
+	}
 }
 
 void ConnectionRepository::handleSetField(DatagramIterator* di) {

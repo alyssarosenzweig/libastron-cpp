@@ -41,7 +41,12 @@ public:
 
 	void generateWithRequired(uint32_t parentId, uint32_t zoneId) {
 		m_cr->generateWithRequired(this, parentId, zoneId, vector<Method*> {});
-	}
+	};
+
+	virtual vector<Value*> get(string field) {
+		cout << "ERROR: override `get` for field " << field << " at " << classname() << "(" << m_do_id << ")" << endl;
+		return vector<Value*>{};
+	};
 protected:
 	ConnectionRepository* m_cr;
 	uint32_t m_do_id;
