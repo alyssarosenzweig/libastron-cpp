@@ -77,6 +77,7 @@ int main() {
 
 	LoginManager loginWatcher(1234);
 	loginWatcher.setCR(&repo);
+	repo.registerDOG(&loginWatcher);
 	repo.subscribe_channel(&loginWatcher);
 
 	DistributedMaproot maproot;

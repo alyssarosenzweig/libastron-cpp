@@ -70,9 +70,13 @@ void ConnectionRepository::handleSetField(DatagramIterator* di) {
 		arguments.push_back(&val);
 	}
 
-	DistributedObject* distObj = NULL; // TODO: maintain doId2do tables
+	DistributedObject* distObj = m_doId2do[do_id];
 
 	if(!distObj->fieldUpdate(field->name(), arguments)) {
 		cout << "Warning: unhandled field update for doId " << do_id << " field name " << field->name() << endl;
 	}
+}
+
+void ConnectionRepository::registerDOG(DistributedObject* dog) {
+	m_doId2do[dog->getDoId()] = dog;
 }

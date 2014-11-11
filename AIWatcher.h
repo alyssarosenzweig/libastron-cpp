@@ -4,23 +4,15 @@
 #include "global.h"
 #include "ChannelWatcher.h"
 
+class AIRepository;
+
 class AIWatcher : public ChannelWatcher {
 public:
 	AIWatcher(uint64_t airId) : ChannelWatcher(airId) {
 
 	};
 
-	void message(AIRepository* cr, DatagramIterator* di, uint64_t sender, uint16_t msgtype) {
-		cout << "AIWatcher message type " << msgtype << endl;
-
-		switch(msgtype) {
-			case STATESERVER_OBJECT_SET_FIELD: {
-				cr->set_message_sender(sender);
-				cr->handleSetField(di);
-				break;
-			};
-		}
-	}
+	void message(AIRepository* cr, DatagramIterator* di, uint64_t sender, uint16_t msgtype);
 };
 
 #endif

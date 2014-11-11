@@ -15,9 +15,11 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 {
 	switch(msgtype) {
 		case STATESERVER_OBJECT_SET_FIELD: {
-			((AIRepository*) cr)->set_message_sender(sender);
-			cr->handleSetField(di);
+			if(sender) 
+				((AIRepository*) cr)->set_message_sender(sender);
 			
+			cr->handleSetField(di);
+
 			break;
 		}
 		default:

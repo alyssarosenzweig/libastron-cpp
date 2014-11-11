@@ -22,6 +22,8 @@ public:
 	virtual void sendUpdate(DistributedObject* obj, string field, vector<Value*> arguments) {};
 	void handleSetField(DatagramIterator* dg);
 
+	void registerDOG(DistributedObject* dog);
+
 protected:
 	Module* m_module;
 	Connection m_connection;
@@ -31,6 +33,8 @@ protected:
 	uint16_t m_port;
 
 	virtual void on_data(uint8_t* data, uint16_t len);
+
+	map<uint32_t, DistributedObject*> m_doId2do;
 };
 
 #endif

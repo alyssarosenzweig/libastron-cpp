@@ -1,7 +1,6 @@
 #include "AIRepository.h"
 #include "msgtypes.h"
 #include "DistributedObject.h"
-#include "AIWatcher.h"
 
 AIRepository::AIRepository(boost::asio::io_service* io_service,
 				string host,
@@ -97,6 +96,7 @@ void AIRepository::generateWithRequiredAndId(
 						 		vector<Method*> optionals)
 {
 	obj->setDoId(doId);
+	m_doId2do[doId] = obj;
 	cout << "generateWithRequiredAndId doId: " << doId << " (" << parentId << "," << zoneId << ")" << endl;
 
 	string classname = obj->classname();
