@@ -93,4 +93,13 @@ void AIRepository::generateWithRequiredAndId(
 {
 	obj->setDoId(doId);
 	cout << "generateWithRequiredAndId doId: " << doId << " (" << parentId << "," << zoneId << ")" << endl;
+
+	Datagram dg;
+	internal_header(&dg, vector<uint64_t>{m_stateserver}, m_air_id, STATESERVER_CREATE_OBJECT_WITH_REQUIRED);
+	dg.add_uint32(doId);
+	dg.add_uint32(parentId);
+	dg.add_uint32(zoneId);
+	dg.add_uint16(dclassId);
+	addRequiredFields(&dg, obj);
+	send(dg);
 }
