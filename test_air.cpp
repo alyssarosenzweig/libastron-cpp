@@ -62,6 +62,8 @@ public:
 		avatar.setCR(m_cr);
 		avatar.generateWithRequired(10000, 0);
 
+		((AIRepository*) m_cr)->client_add_interest(channel, 0, m_do_id, 0);
+
 		return true;
 	}
 };

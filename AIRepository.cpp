@@ -137,3 +137,12 @@ void AIRepository::set_ai(DistributedObject* obj) {
 	dg.add_uint64(m_air_id);
 	send(dg);
 }
+
+void AIRepository::client_add_interest(uint64_t clientChannel, uint16_t interestId, uint32_t parentId, uint32_t zoneId) {
+	Datagram dg;
+	internal_header(&dg, vector<uint64_t>{ clientChannel }, m_air_id, CLIENTAGENT_ADD_INTEREST);
+    dg.add_uint16(interestId);
+    dg.add_uint32(parentId);
+    dg.add_uint32(zoneId);
+    send(dg);
+}
