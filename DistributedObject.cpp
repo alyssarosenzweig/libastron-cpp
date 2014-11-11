@@ -21,6 +21,7 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 			Method* method = field->type()->as_method();
 
 			vector<Value> arguments;
+			arguments.reserve(method->num_parameters());
 
 			for(int i = 0; i < method->num_parameters(); ++i) {
 				Parameter* param = method->get_parameter(i);
@@ -36,7 +37,10 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 				arguments.push_back(val);
 			}
 
-			fieldUpdate(field->name(), arguments);
+			if(!fieldUpdate(field->name(), arguments)) {
+				cout << "Warning: unhandled field update for doId " << m_do_id << " field name " << field->name() << endl;
+			}
+
 			break;
 		}
 		default:
