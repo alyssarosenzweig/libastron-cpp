@@ -50,6 +50,13 @@ void AIRepository::unsubscribe_channel(uint64_t channel) {
 	// FIXME: remove channel watcher
 }
 
+void AIRepository::set_client_state(uint64_t channel, uint16_t state) {
+	Datagram dg;
+	internal_header(&dg, vector<uint64_t>{channel}, m_air_id, CLIENTAGENT_SET_STATE);
+	dg.add_uint16(state);
+	send(dg);
+}
+
 void AIRepository::on_data(uint8_t* data, uint16_t len) {
     Datagram dg(data, len);
     DatagramIterator di(dg);
