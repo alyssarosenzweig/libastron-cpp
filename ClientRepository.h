@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include "ConnectionRepository.h"
+#include "client_msgtypes.h"
 
 class ClientRepository : public ConnectionRepository {
 public:
@@ -11,6 +12,9 @@ public:
 					uint16_t port, 
 					string dcFile,
 					string version);
+	void sendHello();
+private:
+	string m_version;
 };
 
 #endif
