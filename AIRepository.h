@@ -30,6 +30,8 @@ public:
 		m_message_sender = sender;
 	};
 
+	void handleEnterAi(DatagramIterator* di);
+
 	void generateWithRequiredAndId(DistributedObject* obj, uint32_t doId, uint32_t parentId, uint32_t zoneId, vector<Method*> optionals);
 	void sendUpdate(DistributedObject* obj, string field, vector<Value*> arguments);
 	void set_ai(DistributedObject* obj);

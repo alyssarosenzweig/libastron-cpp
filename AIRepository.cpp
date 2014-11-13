@@ -153,3 +153,12 @@ void AIRepository::set_owner(uint32_t doId, uint64_t newOwner) {
 	dg.add_uint64(newOwner);
 	send(dg);
 }
+
+void AIRepository::handleEnterAi(DatagramIterator* di) {
+	uint32_t do_id = di->read_uint32();
+	uint32_t parentId = di->read_uint32();
+	uint32_t zoneId = di->read_uint32();
+	uint16_t dclassId = di->read_uint16();
+
+	cout << "Handle enter AI do_id: " << do_id << " (" << parentId << "," << zoneId << ") dclassId: " << dclassId << endl;
+}
