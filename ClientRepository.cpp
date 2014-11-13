@@ -42,6 +42,10 @@ void ClientRepository::on_data(uint8_t* data, uint16_t len) {
 	    	exit(0); // boost is going to crash inevitably soon; quit now for a clearer error message
 	    	break;
     	};
+    	case CLIENT_HELLO_RESP: {
+    		cout << "CLIENT_HELLO_RESP" << endl;
+    		break;
+    	};
     	default: {
     		cout << "Unknown client message: " << msgtype << endl;
     		break;
