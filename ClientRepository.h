@@ -2,12 +2,13 @@
 #define __CLIENT_REPOSITORY_H_
 
 #include "global.h"
+#include "ConnectionRepository.h"
 
 class ClientRepository : public ConnectionRepository {
 public:
 	ClientRepository(boost::asio::io_service* io_service, 
-					string m_host, 
-					uint16_t m_port, 
+					string host, 
+					uint16_t port, 
 					string dcFile,
 					string version);
 };
