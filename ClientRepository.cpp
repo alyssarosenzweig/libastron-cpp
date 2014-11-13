@@ -34,7 +34,12 @@ void ClientRepository::on_data(uint8_t* data, uint16_t len) {
 
     switch(msgtype) {
     	case CLIENT_EJECT: {
-	    	cout << "Ejected" << endl;
+    		uint16_t errorCode = di.read_uint16();
+    		string reason = di.read_string();
+
+	    	cout << "Ejected (error code " << errorCode << ") " << reason << endl;
+	    	
+	    	exit(0); // boost is going to crash inevitably soon; quit now for a clearer error message
 	    	break;
     	};
     	default: {
