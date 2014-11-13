@@ -19,7 +19,7 @@ void ClientRepository::sendHello() {
 
 	Datagram dg;
 	client_header(&dg, CLIENT_HELLO);
-	dg.add_string(m_version);
 	dg.add_uint32(hash);
+	dg.add_string(m_version);
 	send(dg);
 }
