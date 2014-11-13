@@ -4,8 +4,10 @@ ClientRepository::ClientRepository(boost::asio::io_service* io_service,
 					string host, 
 					uint16_t port, 
 					string dcFile,
-					string version) : ConnectionRepository(io_service, host, port, dcFile),
-										m_version(version)
+					string version,
+					function<void()> helloResp) : ConnectionRepository(io_service, host, port, dcFile),
+										m_version(version),
+										m_helloResp(helloResp)
 {
 	sendHello();
 }
@@ -44,6 +46,7 @@ void ClientRepository::on_data(uint8_t* data, uint16_t len) {
     	};
     	case CLIENT_HELLO_RESP: {
     		cout << "CLIENT_HELLO_RESP" << endl;
+    		m_helloResp();
     		break;
     	};
     	default: {

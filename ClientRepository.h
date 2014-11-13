@@ -11,13 +11,15 @@ public:
 					string host, 
 					uint16_t port, 
 					string dcFile,
-					string version);
+					string version,
+					function<void()> helloResp);
 	void client_header(Datagram* dg, uint16_t msgtype);
 	void sendHello();
 private:
 	void on_data(uint8_t* data, uint16_t len);
 
 	string m_version;
+	function<void()> m_helloResp;
 };
 
 #endif
