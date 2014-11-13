@@ -7,7 +7,7 @@ ClientRepository::ClientRepository(boost::asio::io_service* io_service,
 					string version) : ConnectionRepository(io_service, host, port, dcFile),
 										m_version(version)
 {
-
+	sendHello();
 }
 
 void ClientRepository::client_header(Datagram* dg, uint16_t msgtype) {
