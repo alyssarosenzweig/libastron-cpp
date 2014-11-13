@@ -32,5 +32,7 @@ int main() {
 
 		});
 
+	loginManager.setCR(&repo);
+
 	repo.loop();
 }
