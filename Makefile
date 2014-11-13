@@ -2,8 +2,11 @@ CXX=clang++
 FLAGS=-std=c++0x -I. -g
 LIBS=-lbamboo -lboost_system
 
-all: ConnectionRepository.o Connection.o AIRepository.o test_air.o ChannelWatcher.o DistributedObject.o AIWatcher.o ClientRepository.o
-	$(CXX) test_air.o ConnectionRepository.o AIRepository.o Connection.o ChannelWatcher.o DistributedObject.o AIWatcher.o ClientRepository.o $(FLAGS) $(LIBS) -o test_air
+OBJECTS= ConnectionRepository.o AIRepository.o Connection.o ChannelWatcher.o DistributedObject.o AIWatcher.o ClientRepository.o
+
+all: test_air.o test_client.o $(OBJECTS)
+	$(CXX) test_air.o $(OBJECTS) $(FLAGS) $(LIBS) -o test_air
+	$(CXX) test_client.o $(OBJECTS) $(FLAGS) $(LIBS) -o test_client
 
 ConnectionRepository.o: ConnectionRepository.cpp
 	$(CXX) -c ConnectionRepository.cpp $(FLAGS)
@@ -28,6 +31,9 @@ ClientRepository.o: ClientRepository.cpp
 
 test_air.o: test_air.cpp
 	$(CXX) -c test_air.cpp $(FLAGS)
+
+test_client.o: test_client.cpp
+	$(CXX) -c test_client.cpp $(FLAGS)
 
 clean:
 	rm *.o
