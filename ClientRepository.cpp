@@ -55,3 +55,7 @@ void ClientRepository::on_data(uint8_t* data, uint16_t len) {
     	}
     }
 }
+
+void ClientRepository::sendUpdate(DistributedObject* obj, string field, vector<Value*> arguments) {
+	cout << "sendUpdate CR " << field << endl;
+}
