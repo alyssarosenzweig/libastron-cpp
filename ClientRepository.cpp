@@ -10,6 +10,10 @@ ClientRepository::ClientRepository(boost::asio::io_service* io_service,
 
 }
 
+void ClientRepository::client_header(Datagram* dg, uint16_t msgtype) {
+	dg->add_uint16(msgtype);
+}
+
 void ClientRepository::sendHello() {
 	uint32_t hash = 0xDEADBEEF;
 

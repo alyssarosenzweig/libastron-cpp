@@ -12,6 +12,7 @@ public:
 					uint16_t port, 
 					string dcFile,
 					string version);
+	void client_header(Datagram* dg, uint16_t msgtype);
 	void sendHello();
 private:
 	string m_version;
