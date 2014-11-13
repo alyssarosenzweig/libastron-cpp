@@ -23,3 +23,23 @@ void ClientRepository::sendHello() {
 	dg.add_string(m_version);
 	send(dg);
 }
+
+void ClientRepository::on_data(uint8_t* data, uint16_t len) {
+	cout << "Incoming data of len " << len << endl;
+
+	Datagram dg(data, len);
+    DatagramIterator di(dg);
+
+    uint16_t msgtype = di.read_uint16();
+
+    switch(msgtype) {
+    	case CLIENT_EJECT: {
+	    	cout << "Ejected" << endl;
+	    	break;
+    	};
+    	default: {
+    		cout << "Unknown client message: " << msgtype << endl;
+    		break;
+    	}
+    }
+}

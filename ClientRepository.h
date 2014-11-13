@@ -15,6 +15,8 @@ public:
 	void client_header(Datagram* dg, uint16_t msgtype);
 	void sendHello();
 private:
+	void on_data(uint8_t* data, uint16_t len);
+
 	string m_version;
 };
 
