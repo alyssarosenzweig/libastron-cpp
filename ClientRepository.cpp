@@ -66,5 +66,11 @@ void ClientRepository::sendUpdate(DistributedObject* obj, string fieldName, vect
 	client_header(&dg, CLIENT_OBJECT_SET_FIELD);
 	dg.add_uint32(obj->getDoId());
 	dg.add_uint16(fieldId);
+	
+	for(Value* argument : arguments) {
+		dg.add_value(argument);
+	}
+
+
 	send(dg);
 }
