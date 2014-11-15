@@ -1,4 +1,5 @@
 #include "ClientRepository.h"
+#include "DistributedObject.h"
 
 ClientRepository::ClientRepository(boost::asio::io_service* io_service, 
 					string host, 
@@ -56,6 +57,14 @@ void ClientRepository::on_data(uint8_t* data, uint16_t len) {
     }
 }
 
-void ClientRepository::sendUpdate(DistributedObject* obj, string field, vector<Value*> arguments) {
-	cout << "sendUpdate CR " << field << endl;
+void ClientRepository::sendUpdate(DistributedObject* obj, string fieldName, vector<Value*> arguments) {
+	Class* dclass = m_module->class_by_name(obj->classname());
+	Field* field = dclass->field_by_name(fieldName);
+	uint16_t fieldId = field->id();
+
+	Datagram dg;
+	client_header(&dg, CLIENT_OBJECT_SET_FIELD);
+	dg.add_uint32(obj->getDoId());
+	dg.add_uint16(fieldId);
+	send(dg);
 }
