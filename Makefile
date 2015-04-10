@@ -1,6 +1,6 @@
 CXX=clang++
 FLAGS=-std=c++0x -I. -g
-LIBS=-lbamboo -lboost_system
+LIBS=-lbamboo -lboost_system -lpthread
 
 OBJECTS= ConnectionRepository.o AIRepository.o Connection.o ChannelWatcher.o DistributedObject.o AIWatcher.o ClientRepository.o
 
