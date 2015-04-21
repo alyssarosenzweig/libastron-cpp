@@ -29,6 +29,6 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 	}
 }
 
-void DistributedObject::sendUpdate(string field, vector<DValue>* arguments) {
+void DistributedObject::sendUpdate(string field, vector<DValue> arguments) {
 	m_cr->sendUpdate(this, field, arguments);
 }

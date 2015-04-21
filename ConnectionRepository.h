@@ -28,7 +28,7 @@ public:
 	}
 
 	void addRequiredFields(Datagram* dg, DistributedObject* obj);
-	virtual void sendUpdate(DistributedObject* obj, string field, vector<DValue>* arguments) {
+	virtual void sendUpdate(DistributedObject* obj, string field, vector<DValue> arguments) {
 		cout << "sendUpdate on " << field << endl;
 	};
 	void addDatagramDValue(Datagram* dg, DValue v);

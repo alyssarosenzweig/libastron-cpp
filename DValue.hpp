@@ -1,6 +1,10 @@
 #ifndef __DVALUE_HPP_
 #define __DVALUE_HPP_
 
+#include <stdio.h>
+#include <iostream>
+#include <stdint.h>
+
 // DValue provides a general purpose, Distributed Value type
 // (typedef, struct, union, and basic OOP magic)
 
@@ -30,9 +34,11 @@ typedef struct {
   union {
     uint64_t v_uint;
     int64_t v_int;
-    char* v_string;
     double v_double;
   };
+
+  // TODO: optimize not having a huge string in here
+  std::string v_string; // declared out of the union due to compiler internals
 } DValue;
 
 // generic constructor method for DValue
@@ -48,8 +54,8 @@ typedef struct {
 
 // type constructor table. pile of macros. deal with it
 
-#define $(fancyStr) dstring((char*) fancyStr.c_str())
-DValue dstring(char* str);
+#define $(fancyStr) dstring(fancyStr)
+DValue dstring(std::string str);
 DValue duint8(uint8_t v);
 DValue duint16(uint16_t v);
 DValue duint32(uint32_t v);

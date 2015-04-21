@@ -12,8 +12,7 @@ public:
 	string classname() { return "LoginManager"; };
 
 	void sendLogin(string username, string password) {
-		vector<DValue> args{ $(username), $(password) };
-		sendUpdate("login", &args);
+		sendUpdate("login", vector<DValue>{ $(username), $(password) });
 	}
 };
 

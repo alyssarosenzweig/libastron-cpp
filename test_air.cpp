@@ -15,7 +15,7 @@ public:
 
 	string classname() { return "DistributedAvatar"; };
 
-	bool fieldUpdate(string fieldName, vector<DValue>* arguments) {
+	bool fieldUpdate(string fieldName, vector<DValue> arguments) {
 		cout << "Unhandled fieldUpdate " << fieldName << " for avatar " << m_do_id << endl;
 		return false;
 	}
@@ -37,11 +37,11 @@ public:
 	DistributedMaproot() : DistributedObject() {};
 	string classname() { return "DistributedMaproot"; };
 
-	bool fieldUpdate(string fieldName, vector<DValue>* arguments) {
+	bool fieldUpdate(string fieldName, vector<DValue> arguments) {
 		cout << "Field update on DistributedMaproot " << fieldName << endl;
 
 		if(fieldName == "createAvatar") {
-			return createAvatar((*arguments)[0].v_uint);
+			return createAvatar(arguments[0].v_uint);
 		}
 
 		return false;
@@ -66,14 +66,14 @@ public:
 	LoginManager(uint64_t do_id) : DistributedObject(do_id) {};
 	string classname() { return "LoginManager"; };
 
-	bool fieldUpdate(string fieldName, vector<DValue>* arguments) {
+	bool fieldUpdate(string fieldName, vector<DValue> arguments) {
 		cout << "LoginManager " << fieldName << " updated" << endl;
 
 		if(fieldName == "login") {
 			cout << "O: " << endl;
-			dprint((*arguments)[0]);
-			dprint((*arguments)[1]);
-			return login((*arguments)[0].v_string, (*arguments)[1].v_string);
+			dprint(arguments[0]);
+			dprint(arguments[1]);
+			return login(arguments[0].v_string, arguments[1].v_string);
 		}
 
 		return false;
@@ -89,8 +89,7 @@ public:
 
 		if(username == "guest" && password == "guest") {
 			((AIRepository*) m_cr)->set_client_state(sender, 2);
-			vector<DValue> args{duint64(sender)};
-			m_maproot->sendUpdate("createAvatar", &args);
+			m_maproot->sendUpdate("createAvatar",	vector<DValue>{duint64(sender)});
 		}
 		return true;
 	};
