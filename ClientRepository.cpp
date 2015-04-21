@@ -104,15 +104,3 @@ void ClientRepository::sendUpdate(DistributedObject* obj, string fieldName, vect
 
 	send(dg);
 }
-
-void ClientRepository::onEnterObject(DatagramIterator* di, bool optionals, bool owner) {
-	uint32_t do_id = di->read_uint32();
-	uint32_t parent_id = di->read_uint32();
-	uint32_t zone_id = di->read_uint32();
-	uint16_t dclass_id = di->read_uint16();
-
-	cout << "CR enterObject " << do_id << " dclass " << dclass_id <<
-			"(" << parent_id << "," << zone_id << ")" << endl;
-
-	// TODO: read fields, create object, etc. 
-}

@@ -55,6 +55,29 @@ void ConnectionRepository::addRequiredFields(Datagram* dg, DistributedObject* ob
 	}
 }
 
+void ConnectionRepository::handleEnterObject(DatagramIterator* di, bool optionals, bool owner, bool ai) {
+  uint32_t do_id = di->read_uint32();
+  uint32_t parent_id = di->read_uint32();
+  uint32_t zone_id = di->read_uint32();
+  uint16_t dclass_id = di->read_uint16();
+
+  cout << "enterObject " << do_id << " dclass " << dclass_id <<
+      "(" << parent_id << "," << zone_id << ")" << endl;
+
+  Class* dclass = m_module->class_by_id(dclass_id);
+
+  // TODO: create object here
+
+  for(int i = 0; i < dclass->num_fields(); ++i) {
+    Field* field = dclass->get_field(i);
+
+    if(field->has_keyword("required")) {
+      // TODO: decode field
+    }
+  }
+
+}
+
 void ConnectionRepository::handleSetField(DatagramIterator* di) {
 	uint32_t do_id = di->read_uint32();
 	uint16_t field_id = di->read_uint16();

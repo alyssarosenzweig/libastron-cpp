@@ -33,6 +33,7 @@ public:
 	};
 	void addDatagramDValue(Datagram* dg, DValue v);
 	void handleSetField(DatagramIterator* dg);
+	void handleEnterObject(DatagramIterator* di, bool optionals, bool owner, bool ai);
 
 	void registerDOG(DistributedObject* dog);
 
