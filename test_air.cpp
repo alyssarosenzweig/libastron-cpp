@@ -89,7 +89,8 @@ public:
 
 		if(username == "guest" && password == "guest") {
 			((AIRepository*) m_cr)->set_client_state(sender, 2);
-			m_maproot->sendUpdate("createAvatar",	vector<DValue>{duint64(sender)});
+			vector<DValue> args{duint64(sender)};
+			m_maproot->sendUpdate("createAvatar",	args);
 		}
 		return true;
 	};

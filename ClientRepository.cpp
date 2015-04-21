@@ -58,7 +58,7 @@ void ClientRepository::on_data(uint8_t* data, uint16_t len) {
     }
 }
 
-void ClientRepository::sendUpdate(DistributedObject* obj, string fieldName, vector<DValue> arguments) {
+void ClientRepository::sendUpdate(DistributedObject* obj, string fieldName, vector<DValue>& arguments) {
 	Class* dclass = m_module->class_by_name(obj->classname());
 	Field* field = dclass->field_by_name(fieldName);
 	uint16_t fieldId = field->id();

@@ -34,7 +34,7 @@ public:
 		return m_do_id;
 	}
 
-	void sendUpdate(string fieldName, vector<DValue> arguments);
+	void sendUpdate(string fieldName, vector<DValue>& arguments);
 
 	void generateWithRequiredAndId(uint32_t doId, uint32_t parentId, uint32_t zoneId) {
 		m_cr->generateWithRequiredAndId(this, doId, parentId, zoneId, vector<Method*> {});

@@ -114,7 +114,7 @@ void AIRepository::generateWithRequiredAndId(
 	send(dg);
 }
 
-void AIRepository::sendUpdate(DistributedObject* obj, string fieldName, vector<DValue> arguments) {
+void AIRepository::sendUpdate(DistributedObject* obj, string fieldName, vector<DValue>& arguments) {
 	cout << "Updating field " << obj->classname() << "::" << fieldName << endl;
 	Class* dclass = m_module->class_by_name(obj->classname());
 	Field* field = dclass->field_by_name(fieldName);
