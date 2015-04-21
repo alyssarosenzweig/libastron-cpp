@@ -18,6 +18,7 @@ public:
 	void sendUpdate(DistributedObject* obj, string field, vector<DValue>& arguments);
 private:
 	void on_data(uint8_t* data, uint16_t len);
+	void onEnterObject(DatagramIterator* di, bool optionals, bool owner);
 
 	string m_version;
 	function<void()> m_helloResp;

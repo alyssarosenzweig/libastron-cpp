@@ -46,11 +46,40 @@ void ClientRepository::on_data(uint8_t* data, uint16_t len) {
 	    	exit(0); // boost is going to crash inevitably soon; quit now for a clearer error message
 	    	break;
     	};
+
     	case CLIENT_HELLO_RESP: {
     		cout << "CLIENT_HELLO_RESP" << endl;
     		m_helloResp();
     		break;
     	};
+
+			case CLIENT_ADD_INTEREST: {
+				uint32_t context = di.read_uint32();
+				uint16_t interestID = di.read_uint16();
+				uint32_t parentID = di.read_uint32();
+				uint32_t zoneID = di.read_uint32();
+
+				cout << "Server opened interested for us: " << endl
+						 << "Context: " << context << ", interestID: " << interestID << endl
+						<< "(" << parentID << "," << zoneID << ")" << endl;
+
+				break;
+			};
+
+			case CLIENT_ENTER_OBJECT_REQUIRED: {
+				onEnterObject(&di, false, false);
+			};
+
+			case CLIENT_ENTER_OBJECT_REQUIRED_OWNER: {
+				onEnterObject(&di, false, true);
+			};
+
+			case CLIENT_DONE_INTEREST_RESP: {
+				uint32_t context = di.read_uint32();
+				uint16_t interestID = di.read_uint16();
+
+				cout << "Done Interest: " << context << "," << interestID << endl;
+			};
     	default: {
     		cout << "Unknown client message: " << msgtype << endl;
     		break;
@@ -74,4 +103,16 @@ void ClientRepository::sendUpdate(DistributedObject* obj, string fieldName, vect
 
 
 	send(dg);
+}
+
+void ClientRepository::onEnterObject(DatagramIterator* di, bool optionals, bool owner) {
+	uint32_t do_id = di->read_uint32();
+	uint32_t parent_id = di->read_uint32();
+	uint32_t zone_id = di->read_uint32();
+	uint16_t dclass_id = di->read_uint16();
+
+	cout << "CR enterObject " << do_id << " dclass " << dclass_id <<
+			"(" << parent_id << "," << zone_id << ")" << endl;
+
+	// TODO: read fields, create object, etc. 
 }
