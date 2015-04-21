@@ -17,7 +17,8 @@ public:
 	}
 
 	void message(ConnectionRepository* cr, DatagramIterator* dg, uint64_t sender, uint16_t msgtype);
-	virtual bool fieldUpdate(string fieldName, vector<DValue> arguments) {
+	virtual bool fieldUpdate(string fieldName, vector<DValue>* arguments) {
+		cout << "Warning: Unhandled field update for DO; fieldname " << fieldName << endl;
 		return false;
 	};
 
@@ -33,7 +34,7 @@ public:
 		return m_do_id;
 	}
 
-	void sendUpdate(string fieldName, vector<DValue> arguments);
+	void sendUpdate(string fieldName, vector<DValue>* arguments);
 
 	void generateWithRequiredAndId(uint32_t doId, uint32_t parentId, uint32_t zoneId) {
 		m_cr->generateWithRequiredAndId(this, doId, parentId, zoneId, vector<Method*> {});

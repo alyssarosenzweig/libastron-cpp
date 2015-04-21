@@ -73,19 +73,22 @@ void ConnectionRepository::handleSetField(DatagramIterator* di) {
 		DValue v;
 
 		if(ptype->subtype() == kTypeVarstring) {
-			v = $(di->read_string());
+			string s = di->read_string();
+			v = $(s);
 		} else if(ptype->subtype() == kTypeUint64) {
       v = duint64(di->read_uint64());
 		} else {
 			cout << "TODO: support actually reading type " << ptype->to_string() << endl;
 		}
 
+    dprint(v);
+
 		arguments.push_back(v);
 	}
 
 	DistributedObject* distObj = m_doId2do[do_id];
 
-	if(!distObj->fieldUpdate(field->name(), arguments)) {
+	if(!distObj->fieldUpdate(field->name(), &arguments)) {
 		cout << "Warning: unhandled field update for doId " << do_id << " field name " << field->name() << endl;
 	}
 }
