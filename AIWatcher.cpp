@@ -14,7 +14,7 @@ void AIWatcher::message(ConnectionRepository* _cr, DatagramIterator* di, uint64_
 			break;
 		};
 		case STATESERVER_OBJECT_ENTER_AI_WITH_REQUIRED: {
-			cr->handleEnterObject(DatagramIterator* di, false, false, true);
+			cr->handleEnterObject(di, false, false, true);
 			break;
 		}
 	}

@@ -67,11 +67,13 @@ void ClientRepository::on_data(uint8_t* data, uint16_t len) {
 			};
 
 			case CLIENT_ENTER_OBJECT_REQUIRED: {
-				onEnterObject(&di, false, false);
+				handleEnterObject(&di, false, false, false);
+				break;
 			};
 
 			case CLIENT_ENTER_OBJECT_REQUIRED_OWNER: {
-				onEnterObject(&di, false, true);
+				handleEnterObject(&di, false, true, false);
+				break;
 			};
 
 			case CLIENT_DONE_INTEREST_RESP: {
