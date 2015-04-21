@@ -15,9 +15,9 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 {
 	switch(msgtype) {
 		case STATESERVER_OBJECT_SET_FIELD: {
-			if(sender) 
+			if(sender)
 				((AIRepository*) cr)->set_message_sender(sender);
-			
+
 			cr->handleSetField(di);
 
 			break;
@@ -29,6 +29,6 @@ void DistributedObject::message(ConnectionRepository* cr, DatagramIterator* di, 
 	}
 }
 
-void DistributedObject::sendUpdate(string field, vector<Value*> arguments) {
+void DistributedObject::sendUpdate(string field, vector<DValue> arguments) {
 	m_cr->sendUpdate(this, field, arguments);
 }

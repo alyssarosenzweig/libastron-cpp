@@ -17,7 +17,7 @@ public:
 	}
 
 	void message(ConnectionRepository* cr, DatagramIterator* dg, uint64_t sender, uint16_t msgtype);
-	virtual bool fieldUpdate(string fieldName, vector<Value*> arguments) {
+	virtual bool fieldUpdate(string fieldName, vector<DValue> arguments) {
 		return false;
 	};
 
@@ -33,7 +33,7 @@ public:
 		return m_do_id;
 	}
 
-	void sendUpdate(string fieldName, vector<Value*> arguments);
+	void sendUpdate(string fieldName, vector<DValue> arguments);
 
 	void generateWithRequiredAndId(uint32_t doId, uint32_t parentId, uint32_t zoneId) {
 		m_cr->generateWithRequiredAndId(this, doId, parentId, zoneId, vector<Method*> {});
@@ -43,9 +43,9 @@ public:
 		m_cr->generateWithRequired(this, parentId, zoneId, vector<Method*> {});
 	};
 
-	virtual vector<Value*> get(string field) {
+	virtual vector<DValue> get(string field) {
 		cout << "ERROR: override `get` for field " << field << " at " << classname() << "(" << m_do_id << ")" << endl;
-		return vector<Value*>{};
+		return vector<DValue>{};
 	};
 protected:
 	ConnectionRepository* m_cr;

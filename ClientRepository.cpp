@@ -1,9 +1,9 @@
 #include "ClientRepository.h"
 #include "DistributedObject.h"
 
-ClientRepository::ClientRepository(boost::asio::io_service* io_service, 
-					string host, 
-					uint16_t port, 
+ClientRepository::ClientRepository(boost::asio::io_service* io_service,
+					string host,
+					uint16_t port,
 					string dcFile,
 					string version,
 					function<void()> helloResp) : ConnectionRepository(io_service, host, port, dcFile),
@@ -18,6 +18,7 @@ void ClientRepository::client_header(Datagram* dg, uint16_t msgtype) {
 }
 
 void ClientRepository::sendHello() {
+	//uint32_t hash = m_module->hash(); // bug @kestred to implement
 	uint32_t hash = 0xDEADBEEF;
 
 	Datagram dg;
@@ -41,7 +42,7 @@ void ClientRepository::on_data(uint8_t* data, uint16_t len) {
     		string reason = di.read_string();
 
 	    	cout << "Ejected (error code " << errorCode << ") " << reason << endl;
-	    	
+
 	    	exit(0); // boost is going to crash inevitably soon; quit now for a clearer error message
 	    	break;
     	};
@@ -57,7 +58,7 @@ void ClientRepository::on_data(uint8_t* data, uint16_t len) {
     }
 }
 
-void ClientRepository::sendUpdate(DistributedObject* obj, string fieldName, vector<Value*> arguments) {
+void ClientRepository::sendUpdate(DistributedObject* obj, string fieldName, vector<DValue> arguments) {
 	Class* dclass = m_module->class_by_name(obj->classname());
 	Field* field = dclass->field_by_name(fieldName);
 	uint16_t fieldId = field->id();
@@ -66,9 +67,9 @@ void ClientRepository::sendUpdate(DistributedObject* obj, string fieldName, vect
 	client_header(&dg, CLIENT_OBJECT_SET_FIELD);
 	dg.add_uint32(obj->getDoId());
 	dg.add_uint16(fieldId);
-	
-	for(Value* argument : arguments) {
-		dg.add_value(argument);
+
+	for(DValue argument : arguments) {
+		addDatagramDValue(&dg, argument);
 	}
 
 

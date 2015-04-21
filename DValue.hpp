@@ -13,13 +13,15 @@ enum DVType {
   d_int16,
   d_int32,
   d_int64,
+  d_float32,
   d_string,
 };
 
 enum DVHighType {
   dh_uint,
   dh_int,
-  dh_string
+  dh_string,
+  dh_double,
 };
 
 typedef struct {
@@ -29,6 +31,7 @@ typedef struct {
     uint64_t v_uint;
     int64_t v_int;
     char* v_string;
+    double v_double;
   };
 } DValue;
 
@@ -45,22 +48,19 @@ typedef struct {
 
 // type constructor table. pile of macros. deal with it
 
-DValue init_dstring(char* str) DValue_init_generic(d_string, dh_string, v_string, str)
-DValue init_duint8(uint8_t v) DValue_init_generic(d_uint8, dh_uint, v_uint, v)
-DValue init_duint16(uint16_t v) DValue_init_generic(d_uint16, dh_uint, v_uint, v)
-DValue init_duint32(uint32_t v) DValue_init_generic(d_uint32, dh_uint, v_uint, v)
-DValue init_duint64(uint64_t v) DValue_init_generic(d_uint64, dh_uint, v_uint, v)
-DValue init_dint8(int8_t v) DValue_init_generic(d_int8, dh_int, v_int, v)
-DValue init_dint16(int16_t v) DValue_init_generic(d_int16, dh_int, v_int, v)
-DValue init_dint32(int32_t v) DValue_init_generic(d_int32, dh_int, v_int, v)
-DValue init_dint64(int64_t v) DValue_init_generic(d_int64, dh_int, v_int, v)
+#define $(fancyStr) dstring((char*) fancyStr.c_str())
+DValue dstring(char* str);
+DValue duint8(uint8_t v);
+DValue duint16(uint16_t v);
+DValue duint32(uint32_t v);
+DValue duint64(uint64_t v);
+DValue dint8(int8_t v);
+DValue dint16(int16_t v);
+DValue dint32(int32_t v);
+DValue dint64(int64_t v);
+DValue dfloat32(float v);
 
-// debug stub
-void dprint(DValue v) {
-       if(v.d_hightype == dh_int) printf("%ld\n", v.v_int);
-  else if(v.d_hightype == dh_uint) printf("%lu\n", v.v_uint);
-  else if(v.d_hightype == dh_string) printf("%s\n", v.v_string);
-  else printf("Cannot print DValue of hightype %d\n", v.d_hightype);
-}
+// typeless printf, basically
+void dprint(DValue v);
 
 #endif

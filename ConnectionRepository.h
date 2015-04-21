@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include "Connection.h"
+#include "DValue.hpp"
 
 class DistributedObject;
 
@@ -27,9 +28,10 @@ public:
 	}
 
 	void addRequiredFields(Datagram* dg, DistributedObject* obj);
-	virtual void sendUpdate(DistributedObject* obj, string field, vector<Value*> arguments) {
+	virtual void sendUpdate(DistributedObject* obj, string field, vector<DValue> arguments) {
 		cout << "sendUpdate on " << field << endl;
 	};
+	void addDatagramDValue(Datagram* dg, DValue v);
 	void handleSetField(DatagramIterator* dg);
 
 	void registerDOG(DistributedObject* dog);

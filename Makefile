@@ -2,7 +2,7 @@ CXX=clang++
 FLAGS=-std=c++0x -I. -g
 LIBS=-lbamboo -lboost_system -lpthread
 
-OBJECTS= ConnectionRepository.o AIRepository.o Connection.o ChannelWatcher.o DistributedObject.o AIWatcher.o ClientRepository.o
+OBJECTS= ConnectionRepository.o AIRepository.o Connection.o ChannelWatcher.o DistributedObject.o AIWatcher.o ClientRepository.o DValue.o
 
 all: test_air.o test_client.o $(OBJECTS)
 	$(CXX) test_air.o $(OBJECTS) $(FLAGS) $(LIBS) -o test_air
@@ -28,6 +28,9 @@ DistributedObject.o: DistributedObject.cpp
 
 ClientRepository.o: ClientRepository.cpp
 	$(CXX) -c ClientRepository.cpp $(FLAGS)
+
+DValue.o: DValue.cpp
+	$(CXX) -c DValue.cpp $(FLAGS)
 
 test_air.o: test_air.cpp
 	$(CXX) -c test_air.cpp $(FLAGS)

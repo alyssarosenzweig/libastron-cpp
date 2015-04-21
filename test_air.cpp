@@ -20,22 +20,12 @@ public:
 		return false;
 	}
 
-	vector<Value*> get(string fieldName) {
+	vector<DValue> get(string fieldName) {
 		if(fieldName == "setXYZH") {
-			Value* x = new Value(new Numeric(kTypeFloat32));
-			Value* y = new Value(new Numeric(kTypeFloat32));
-			Value* z = new Value(new Numeric(kTypeFloat32));
-			Value* h = new Value(new Numeric(kTypeFloat32));
-
-			x->float_ = m_x;
-			y->float_ = m_y;
-			z->float_ = m_z;
-			h->float_ = m_h;
-
-			return vector<Value*>{ x, y, z, h };
+			return vector<DValue>{ dfloat32(m_x), dfloat32(m_y), dfloat32(m_z), dfloat32(m_h) };
 		} else {
 			cout << "DistributedAvatar unknown field " << fieldName << " requested" << endl;
-			return vector<Value*>{};
+			return vector<DValue>{};
 		}
 	}
 private:
@@ -82,22 +72,19 @@ public:
 		}
 
 		return false;
-	};
 
+	};
 	bool login(string username, string password) {
 		uint64_t sender = ((AIRepository*) m_cr)->get_message_sender();
 
-		cout << "Login attempt at channel " << sender 
-			 << " from " << username 
+		cout << "Login attempt at channel " << sender
+			 << " from " << username
 			 << " with pass " << password
 			 << endl;
-		
-		if(username == "guest" && password == "guest") {
-			Value* channel = new Value(new Numeric(kTypeUint64));
-			channel->uint_ = sender;
 
+		if(username == "guest" && password == "guest") {
 			((AIRepository*) m_cr)->set_client_state(sender, 2);
-			m_maproot->sendUpdate("createAvatar", vector<Value*> {channel});
+			m_maproot->sendUpdate("createAvatar", vector<DValue> {duint64(sender)});
 		}
 		return true;
 	};

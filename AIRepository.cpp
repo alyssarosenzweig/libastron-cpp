@@ -14,9 +14,9 @@ AIRepository::AIRepository(boost::asio::io_service* io_service,
 	subscribe_channel(&m_airWatcher);
 }
 
-void AIRepository::internal_header(Datagram* dg, 
-									vector<uint64_t> recipients, 
-									uint64_t sender, 
+void AIRepository::internal_header(Datagram* dg,
+									vector<uint64_t> recipients,
+									uint64_t sender,
 									uint16_t msgtype)
 {
 	dg->add_uint8(recipients.size());
@@ -91,7 +91,7 @@ void AIRepository::on_data(uint8_t* data, uint16_t len) {
 
 void AIRepository::generateWithRequiredAndId(
 								DistributedObject* obj,
-						 		uint32_t doId, 
+						 		uint32_t doId,
 						 		uint32_t parentId, uint32_t zoneId,
 						 		vector<Method*> optionals)
 {
@@ -114,18 +114,18 @@ void AIRepository::generateWithRequiredAndId(
 	send(dg);
 }
 
-void AIRepository::sendUpdate(DistributedObject* obj, string fieldName, vector<Value*> arguments) {
+void AIRepository::sendUpdate(DistributedObject* obj, string fieldName, vector<DValue> arguments) {
 	cout << "Updating field " << obj->classname() << "::" << fieldName << endl;
 	Class* dclass = m_module->class_by_name(obj->classname());
-	Field* field = dclass->field_by_name(fieldName);	
+	Field* field = dclass->field_by_name(fieldName);
 
 	Datagram dg;
-	internal_header(&dg, vector<uint64_t>{ obj->getDoId() }, m_air_id, STATESERVER_OBJECT_SET_FIELD);	
+	internal_header(&dg, vector<uint64_t>{ obj->getDoId() }, m_air_id, STATESERVER_OBJECT_SET_FIELD);
 	dg.add_uint32(obj->getDoId());
 	dg.add_uint16(field->id());
-	
-	for(Value* argument : arguments) {
-		dg.add_value(argument);
+
+	for(DValue argument : arguments) {
+		addDatagramDValue(&dg, argument);
 	}
 
 	send(dg);
