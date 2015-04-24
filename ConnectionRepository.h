@@ -4,6 +4,7 @@
 #include "global.h"
 #include "Connection.h"
 #include "DValue.hpp"
+#include "DynamicClass.h"
 
 class DistributedObject;
 
@@ -36,6 +37,9 @@ public:
 	void handleEnterObject(DatagramIterator* di, bool optionals, bool owner, bool ai);
 
 	void registerDOG(DistributedObject* dog);
+	void classRegister(string className, DistributedObject*(*construct)(uint64_t pdoId), ClassType dtype);
+
+	map<string, ClassDefinition*> m_classMap;
 
 protected:
 	Module* m_module;

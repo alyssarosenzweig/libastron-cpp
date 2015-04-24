@@ -155,3 +155,25 @@ void ConnectionRepository::addDatagramDValue(Datagram* dg, DValue v) {
 void ConnectionRepository::registerDOG(DistributedObject* dog) {
 	m_doId2do[dog->getDoId()] = dog;
 }
+
+// registers a generic class to the classMap
+// should not be used directly;
+// sane developers should use abstracted macros to this interface
+
+void ConnectionRepository::classRegister(
+    string className,
+    DistributedObject*(*construct)(uint64_t pDoId),
+    ClassType dtype)
+{
+    ClassDefinition* def = (ClassDefinition*) malloc(sizeof(ClassDefinition));
+    def->dtype = dtype;
+    def->constructor = construct;
+
+    string accessName = className + (dtype == T_AI ? "AI" :
+                                     dtype == T_UD ? "UD" :
+                                     dtype == T_DOG ? "DOG" :
+                                     "");
+
+                                     cout << "accessName" << accessName << endl;
+    m_classMap[accessName] = def;
+}

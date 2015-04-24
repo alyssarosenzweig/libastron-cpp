@@ -108,6 +108,10 @@ int main() {
 	boost::asio::io_service io_service;
 	AIRepository repo(&io_service, "localhost", 7199, "simple_example.dc", 1337, 402000);
 
+	repo.classRegister("DistributedAvatar", &dclassInstantiate<DistributedAvatar>, T_AI);
+	repo.classRegister("DistributedMaproot", &dclassInstantiate<DistributedMaproot>, T_AI);
+	repo.classRegister("LoginManager", &dclassInstantiateUD<LoginManager>, T_UD);
+
 	Datagram dg;
 	repo.control_header(&dg, CONTROL_SET_CON_NAME);
 	dg.add_string("libastron-c++");

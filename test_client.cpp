@@ -28,6 +28,8 @@ int main() {
 
 		});
 
+	repo.classRegister("LoginManager", &dclassInstantiateUD<LoginManager>, T_DOG);
+
 	loginManager.setCR(&repo);
 
 	repo.loop();
